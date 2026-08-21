@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#081B4B</color>
+    <color name="secondary">#4B2E83</color>
+    <color name="accent">#D4AF37</color>
+    <color name="success">#0F5E5E</color>
+    <color name="fail">#9B2C2C</color>
+
 </resources>
