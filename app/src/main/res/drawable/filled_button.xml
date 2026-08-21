@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Fills the button with your primary color -->
+    <solid android:color="@color/primary" />
+
+    <!-- Rounds the corners (8dp is standard for normal buttons) -->
+    <corners android:radius="20dp" />
+
+</shape>
