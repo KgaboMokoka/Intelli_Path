@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Fills the inside with white -->
+    <solid android:color="@android:color/white" />
+
+    <!-- Creates the border line -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/primary" />
+
+    <!-- Rounds the corners to match the other button -->
+    <corners android:radius="20dp" />
+
+</shape>
