@@ -4,15 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.intellipath.data.SupabaseAuthRepository;
-
 import org.jetbrains.annotations.NotNull;
 
 public class SignUpPage extends AppCompatActivity {
@@ -38,9 +32,9 @@ public class SignUpPage extends AppCompatActivity {
         String lastNameVal      = lastName.getText().toString().trim();
         String studentNumberVal = studentNumber.getText().toString().trim();
         String emailVal         = email.getText().toString().trim();
-        String passwordVal      = password.getText().toString().trim();
+        String passwordVal      = password.getText().toString();
 
-        if (emailVal.isEmpty() || passwordVal.isEmpty() || studentNumberVal.isEmpty()) {
+        if (firstNameVal.isEmpty() || lastNameVal.isEmpty() ||emailVal.isEmpty() || passwordVal.isEmpty() || studentNumberVal.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -49,7 +43,7 @@ public class SignUpPage extends AppCompatActivity {
                 new SupabaseAuthRepository.AuthCallback() {
                     @Override
                     public void onSuccess() {
-                        startActivity(new Intent(SignUpPage.this, MainActivity.class));
+                        startActivity(new Intent(SignUpPage.this, RegistrationTwo.class));
                         finish();
                     }
 
