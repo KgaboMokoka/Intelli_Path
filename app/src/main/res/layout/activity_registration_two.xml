@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationTwo">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tell us about your academic journey"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We use this to customize your curriculum and connect you with peers."
+            android:textAlignment="center"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Campus"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="6dp"/>
+
+        <Spinner
+            android:id="@+id/campusDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dropdown"
+            android:layout_marginBottom="16dp"
+            android:padding="10dp"/>
+<!--            android:inputType="none"-->
+<!--            android:hint="Select your campus"-->
+<!--            android:padding="12dp"-->
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Academic Year"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginBottom="6dp"/>
+
+        <Spinner
+            android:id="@+id/currentAcademicYearDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@drawable/bg_dropdown"
+            android:layout_marginBottom="24dp"/>
+<!--            android:inputType="none"-->
+<!--            android:hint="Select your academic year"-->
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Career Goal"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select your primary career aspiration."
+            android:textColor="@color/primary"
+            android:layout_marginBottom="12dp"/>
+
+        <GridLayout
+            android:id="@+id/careerGoalGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/goalFullStack"
+                style="@style/CareerGoalTile"
+                android:text="Full Stack Developer"/>
+
+            <TextView
+                android:id="@+id/goalFrontEnd"
+                style="@style/CareerGoalTile"
+                android:text="Front-End Developer"/>
+
+            <TextView
+                android:id="@+id/goalBackEnd"
+                style="@style/CareerGoalTile"
+                android:text="Back-End Developer"/>
+
+            <TextView
+                android:id="@+id/goalAI"
+                style="@style/CareerGoalTile"
+                android:text="AI Engineer"/>
+
+            <TextView
+                android:id="@+id/goalData"
+                style="@style/CareerGoalTile"
+                android:text="Data Engineer"/>
+
+            <TextView
+                android:id="@+id/goalCloud"
+                style="@style/CareerGoalTile"
+                android:text="Cloud Engineer"/>
+
+        </GridLayout>
+
+        <Button
+            android:id="@+id/registrationContinueButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish Registration"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</ScrollView>
