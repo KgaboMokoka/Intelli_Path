@@ -38,7 +38,7 @@ public class SignUpPage extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO: Add validation for password !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//TODO: Add validation for password !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         SupabaseAuthRepository.signUp(firstNameVal, lastNameVal, studentNumberVal, emailVal, passwordVal,
                 new SupabaseAuthRepository.AuthCallback() {
                     @Override
@@ -54,3 +54,5 @@ public class SignUpPage extends AppCompatActivity {
                 });
     }
 }
+
+/// Make a popup window for the terms and conditions ! and that if button not checked toast appears and user must check it.

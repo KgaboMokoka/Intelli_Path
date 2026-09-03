@@ -3,8 +3,6 @@ package com.example.intellipath;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-//import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
@@ -12,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.intellipath.data.SupabaseAuthRepository;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +24,6 @@ public class RegistrationTwo extends AppCompatActivity {
     private String selectedCampus = "";
     private String selectedAcademicYear = "";
     private String selectedCareerGoal = "";
-    private Button registrationContinueButton;
-
     private List<TextView> careerGoalTiles;
 
     @Override
@@ -37,7 +37,6 @@ public class RegistrationTwo extends AppCompatActivity {
         setupCampusDropdown();
         setupAcademicYearDropdown();
         setupCareerGoalTiles();
-        registrationContinueButton = findViewById(R.id.registrationContinueButton);
         findViewById(R.id.registrationContinueButton)
                 .setOnClickListener(view -> finishRegistration());
     }
@@ -176,14 +175,25 @@ public class RegistrationTwo extends AppCompatActivity {
         }
 
         sendDataToSupabase();
-
-        startActivity(new Intent(RegistrationTwo.this, MainActivity.class));
-        finish();
     }
 
     private void sendDataToSupabase() {
-        // since we have two different phases registrationTwo should update the authenticated user.
-        // so remember that for when implementing this code.
+        SupabaseAuthRepository.updateStudentProfile(
+                selectedCampus,
+                selectedAcademicYear,
+                selectedCareerGoal,
+                new SupabaseAuthRepository.AuthCallback() {
+                    @Override
+                    public void onSuccess() {
+                        startActivity(new Intent(RegistrationTwo.this, MainActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(@NotNull String message) {
+                        Toast.makeText(RegistrationTwo.this, message, Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 }
-
