@@ -1,10 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="30dp"
     tools:context=".ConfirmEmailPage">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/confirmEmailIcon"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/ic_confirm_email"
+        android:contentDescription="Verify your email address"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify your email address"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/confirmEmailMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have entered your.email@example.com for your account. Please verify this email by checking your emails."
+        android:textAlignment="center"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login once email has been confirmed."
+        android:textAlignment="center"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="40dp"/>
+
+    <Button
+        android:id="@+id/openEmailAppButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Open Email App"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_input_field"/>
+
+    <Button
+        android:id="@+id/resendEmailButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Resend Email"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_button_outline"
+        android:textColor="@color/primary"
+        android:backgroundTint="@null"/>
+
+    <TextView
+        android:id="@+id/backToLoginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Login"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
