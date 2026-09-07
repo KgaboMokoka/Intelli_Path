@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SignUpPage extends AppCompatActivity {
 
-    private EditText firstName, lastName, studentNumber, email, password;
+    private EditText firstName, lastName, studentNumber, email, password, confirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +23,34 @@ public class SignUpPage extends AppCompatActivity {
         studentNumber = findViewById(R.id.studentNumber);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
 
         findViewById(R.id.registerButton).setOnClickListener(v -> signUp());
+        findViewById(R.id.backButton).setOnClickListener(v -> finish());
+        findViewById(R.id.loginPage).setOnClickListener(v ->
+                startActivity(new Intent(SignUpPage.this, LoginPage.class)));
     }
 
     private void signUp() {
-        String firstNameVal     = firstName.getText().toString().trim();
-        String lastNameVal      = lastName.getText().toString().trim();
-        String studentNumberVal = studentNumber.getText().toString().trim();
-        String emailVal         = email.getText().toString().trim();
-        String passwordVal      = password.getText().toString();
+        String firstNameVal        = firstName.getText().toString().trim();
+        String lastNameVal         = lastName.getText().toString().trim();
+        String studentNumberVal    = studentNumber.getText().toString().trim();
+        String emailVal            = email.getText().toString().trim();
+        String passwordVal         = password.getText().toString();
+        String confirmPasswordVal  = confirmPassword.getText().toString();
 
-        if (firstNameVal.isEmpty() || lastNameVal.isEmpty() ||emailVal.isEmpty() || passwordVal.isEmpty() || studentNumberVal.isEmpty()) {
+        if (firstNameVal.isEmpty() || lastNameVal.isEmpty() || emailVal.isEmpty()
+                || passwordVal.isEmpty() || confirmPasswordVal.isEmpty() || studentNumberVal.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
-//TODO: Add validation for password !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if (!passwordVal.equals(confirmPasswordVal)) {
+            Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //TODO: Add validation for password strength !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         SupabaseAuthRepository.signUp(firstNameVal, lastNameVal, studentNumberVal, emailVal, passwordVal,
                 new SupabaseAuthRepository.AuthCallback() {
                     @Override
@@ -54,5 +66,3 @@ public class SignUpPage extends AppCompatActivity {
                 });
     }
 }
-
-/// Make a popup window for the terms and conditions ! and that if button not checked toast appears and user must check it.

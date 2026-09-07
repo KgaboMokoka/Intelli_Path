@@ -99,4 +99,23 @@ object SupabaseAuthRepository {
             }
         }
     }
+
+    @JvmStatic
+    fun signIn(
+        email: String,
+        password: String,
+        callback: AuthCallback
+    ) {
+        scope.launch {
+            try {
+                SupabaseProvider.client.auth.signInWith(Email) {
+                    this.email = email
+                    this.password = password
+                }
+                withContext(Dispatchers.Main) { callback.onSuccess() }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) { callback.onError(e.message ?: "Login failed") }
+            }
+        }
+    }
 }
