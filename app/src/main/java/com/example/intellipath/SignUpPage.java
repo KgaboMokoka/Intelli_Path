@@ -26,7 +26,6 @@ public class SignUpPage extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirmPassword);
 
         findViewById(R.id.registerButton).setOnClickListener(v -> signUp());
-        findViewById(R.id.backButton).setOnClickListener(v -> finish());
         findViewById(R.id.loginPage).setOnClickListener(v ->
                 startActivity(new Intent(SignUpPage.this, LoginPage.class)));
     }
@@ -55,7 +54,9 @@ public class SignUpPage extends AppCompatActivity {
                 new SupabaseAuthRepository.AuthCallback() {
                     @Override
                     public void onSuccess() {
-                        startActivity(new Intent(SignUpPage.this, RegistrationTwo.class));
+                        Intent intent = new Intent(SignUpPage.this, ConfirmEmailPage.class);
+                        intent.putExtra(ConfirmEmailPage.EXTRA_EMAIL, emailVal);
+                        startActivity(intent);
                         finish();
                     }
 

@@ -37,9 +37,15 @@ public class LoginPage extends AppCompatActivity {
         }
 
         SupabaseAuthRepository.signIn(emailVal, passwordVal,
-                new SupabaseAuthRepository.AuthCallback() {
+                new SupabaseAuthRepository.LoginCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onNeedsRegistration() {
+                        startActivity(new Intent(LoginPage.this, RegistrationTwo.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onComplete() {
                         startActivity(new Intent(LoginPage.this, MainActivity.class));
                         finish();
                     }
