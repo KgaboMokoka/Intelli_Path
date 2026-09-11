@@ -1,20 +1,765 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8FC"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thobela and Stuff &#10; Dashboard goes here init."
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- ========================================================= -->
+    <!-- TOP HEADER -->
+    <!-- ========================================================= -->
+
+    <LinearLayout
+        android:id="@+id/topHeader"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:background="#080B2A"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Menu -->
+        <TextView
+            android:id="@+id/menuButton"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="☰"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Open menu" />
+
+        <!-- App Name -->
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:text="IntelliPath"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <!-- Profile -->
+        <TextView
+            android:id="@+id/profileButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="#E9E7F8"
+            android:gravity="center"
+            android:text="👤"
+            android:textSize="17sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Open profile" />
+
+    </LinearLayout>
+
+
+    <!-- ========================================================= -->
+    <!-- SCROLLABLE DASHBOARD CONTENT -->
+    <!-- ========================================================= -->
+
+    <ScrollView
+        android:id="@+id/dashboardScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="20dp">
+
+            <!-- ================================================= -->
+            <!-- GREETING -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello, Lebo!"
+                android:textColor="#10142F"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWelcomeMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Welcome to your IntelliPath dashboard. Let's begin your journey."
+                android:textColor="#626477"
+                android:textSize="12sp"
+                android:lineSpacingExtra="2dp" />
+
+
+            <!-- ================================================= -->
+            <!-- INDUSTRY READINESS SCORE CARD -->
+            <!-- ================================================= -->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/readinessScoreCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <!-- Score Icon -->
+                    <TextView
+                        android:id="@+id/scoreIcon"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="#F0F0F4"
+                        android:gravity="center"
+                        android:text="↗"
+                        android:textColor="#777A88"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Industry Readiness"
+                            android:textColor="#151831"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvReadinessScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Score"
+                            android:textColor="#777A88"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvAcademicYear"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#F0EFF8"
+                                android:paddingStart="7dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="7dp"
+                                android:paddingBottom="3dp"
+                                android:text="Year 3"
+                                android:textColor="#666174"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:id="@+id/tvCareerGoal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:background="#F0EFF8"
+                                android:paddingStart="7dp"
+                                android:paddingTop="3dp"
+                                android:paddingEnd="7dp"
+                                android:paddingBottom="3dp"
+                                android:text="Full Stack Developer"
+                                android:textColor="#666174"
+                                android:textSize="9sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- ================================================= -->
+            <!-- BASELINE MESSAGE -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:id="@+id/tvBaselineMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Complete your Baseline Assessment to unlock your personalised roadmap and begin tracking your readiness score."
+                android:textColor="#777A88"
+                android:textSize="10sp"
+                android:lineSpacingExtra="2dp" />
+
+
+            <!-- ================================================= -->
+            <!-- CONTINUE YOUR JOURNEY -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:id="@+id/tvContinueJourney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Continue Your Journey"
+                android:textColor="#151831"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <!-- ================================================= -->
+            <!-- 2 x 3 GRID -->
+            <!-- ================================================= -->
+
+            <GridLayout
+                android:id="@+id/journeyGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:useDefaultMargins="false">
+
+
+                <!-- ============================================= -->
+                <!-- 1. BASELINE ASSESSMENT -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBaseline"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#EEEAFB"
+                            android:gravity="center"
+                            android:text="▣"
+                            android:textColor="#5B42A5"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Baseline Assessment"
+                            android:textColor="#171A34"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Start your journey by evaluating your current skills and knowledge."
+                            android:textColor="#737586"
+                            android:textSize="9sp"
+                            android:lineSpacingExtra="1dp" />
+
+                        <TextView
+                            android:id="@+id/tvBaselineAction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Start Now →"
+                            android:textColor="#6744B7"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- ============================================= -->
+                <!-- 2. ROADMAP -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardRoadmap"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:alpha="0.55"
+                    app:cardBackgroundColor="#F1F1F4"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#E3E3E7"
+                            android:gravity="center"
+                            android:text="⌁"
+                            android:textColor="#777A83"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Roadmap"
+                            android:textColor="#555762"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Unlock by completing the Baseline Assessment."
+                            android:textColor="#85868E"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="🔒 Locked"
+                            android:textColor="#777A83"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- ============================================= -->
+                <!-- 3. ASSESSMENTS -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAssessments"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:alpha="0.55"
+                    app:cardBackgroundColor="#F1F1F4"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#E3E3E7"
+                            android:gravity="center"
+                            android:text="✓"
+                            android:textColor="#777A83"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Assessments"
+                            android:textColor="#555762"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Unlock by completing the Baseline Assessment."
+                            android:textColor="#85868E"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="🔒 Locked"
+                            android:textColor="#777A83"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- ============================================= -->
+                <!-- 4. SIMULATION -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSimulation"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:alpha="0.55"
+                    app:cardBackgroundColor="#F1F1F4"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#E3E3E7"
+                            android:gravity="center"
+                            android:text="◉"
+                            android:textColor="#777A83"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Simulation"
+                            android:textColor="#555762"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Unlock by completing the Baseline Assessment."
+                            android:textColor="#85868E"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="🔒 Locked"
+                            android:textColor="#777A83"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- ============================================= -->
+                <!-- 5. COLLABORATION -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCollaboration"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:alpha="0.55"
+                    app:cardBackgroundColor="#F1F1F4"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#E3E3E7"
+                            android:gravity="center"
+                            android:text="♙"
+                            android:textColor="#777A83"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Collaboration"
+                            android:textColor="#555762"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Unlock by completing the Baseline Assessment."
+                            android:textColor="#85868E"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="🔒 Locked"
+                            android:textColor="#777A83"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- ============================================= -->
+                <!-- 6. ACHIEVEMENTS -->
+                <!-- ============================================= -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAchievements"
+                    android:layout_width="0dp"
+                    android:layout_height="145dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="5dp"
+                    android:alpha="0.55"
+                    app:cardBackgroundColor="#F1F1F4"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="#E3E3E7"
+                            android:gravity="center"
+                            android:text="♜"
+                            android:textColor="#777A83"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Achievements"
+                            android:textColor="#555762"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Unlock by completing the Baseline Assessment."
+                            android:textColor="#85868E"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="🔒 Locked"
+                            android:textColor="#777A83"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ========================================================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ========================================================= -->
+
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:background="#080B2A"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <!-- Dashboard -->
+        <LinearLayout
+            android:id="@+id/navDashboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dashboard"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <!-- Assessments -->
+        <LinearLayout
+            android:id="@+id/navAssessments"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▣"
+                android:textColor="#B8B8C7"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Assessments"
+                android:textColor="#B8B8C7"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+
+        <!-- Progress -->
+        <LinearLayout
+            android:id="@+id/navProgress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌁"
+                android:textColor="#B8B8C7"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress"
+                android:textColor="#B8B8C7"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+
+        <!-- Profile -->
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♙"
+                android:textColor="#B8B8C7"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="#B8B8C7"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
