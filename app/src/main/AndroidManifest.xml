@@ -38,19 +38,31 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".BaselineIntroductionActivity"
+            android:name=".AdminDash"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".BaselineTestActivity"
+            android:name=".StudentManagement"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AssessmentCompleteActivity"
+            android:name=".AssesmentManagement"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AssessmentResultsActivity"
+            android:name=".FeedbackReports"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AdminSettings"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activityRoadmapBeginner"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activityRoadmapIntermediate"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
