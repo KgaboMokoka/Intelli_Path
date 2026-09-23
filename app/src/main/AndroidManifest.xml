@@ -58,11 +58,19 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activityRoadmapBeginner"
+            android:name=".BaselineIntroductionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activityRoadmapIntermediate"
+            android:name=".BaselineTestActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AssessmentCompleteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AssessmentResultsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
