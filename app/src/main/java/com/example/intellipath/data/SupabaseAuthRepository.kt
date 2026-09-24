@@ -32,6 +32,10 @@ data class StudentProfileUpdate(
 @Serializable
 data class StudentRow(
     val student_id: String,
+    val first_name: String? = null,
+    val last_name: String? = null,
+    val student_number: String? = null,
+    val email: String? = null,
     val campus: String? = null,
     val current_academic_year: String? = null,
     val career_goal: String? = null
@@ -43,6 +47,11 @@ object SupabaseAuthRepository {
         fun onError(message: String)
     }
 
+    interface StudentProfileCallback {
+        fun onSuccess(student: StudentRow)
+        fun onError(message: String)
+    }
+
     interface LoginCallback {
         fun onNeedsRegistration()
         fun onComplete()
@@ -50,6 +59,41 @@ object SupabaseAuthRepository {
     }
 
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    @JvmStatic
+    fun getCurrentStudentProfile(
+        callback: StudentProfileCallback
+    ) {
+        scope.launch {
+            try {
+                val userId = SupabaseProvider.client.auth.currentUserOrNull()?.id
+                    ?: throw Exception("No authenticated user found")
+
+                val student = SupabaseProvider.client.postgrest["students"]
+                    .select {
+                        filter {
+                            eq("student_id", userId)
+                        }
+                    }
+                    .decodeSingleOrNull<StudentRow>()
+
+                if (student == null) {
+                    throw Exception("Student profile not found")
+                }
+
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(student)
+                }
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onError(
+                        e.message ?: "Failed to load student profile"
+                    )
+                }
+            }
+        }
+    }
 
     @JvmStatic
     fun signUp(
