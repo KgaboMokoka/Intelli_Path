@@ -31,12 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setupClickListeners();
     }
 
-    /**
-     * Finds the views from activity_main.xml
-     * and assigns them to the Java variables.
-     */
     private void initialiseViews() {
-
         cardBaseline = findViewById(R.id.cardBaseline);
         cardRoadmap = findViewById(R.id.cardRoadmap);
         cardAssessments = findViewById(R.id.cardAssessments);
@@ -45,32 +40,19 @@ public class MainActivity extends AppCompatActivity {
         cardAchievements = findViewById(R.id.cardAchievements);
     }
 
-    /**
-     * Controls what happens when the user
-     * interacts with Dashboard components.
-     */
     private void setupClickListeners() {
 
         // Baseline Assessment
         cardBaseline.setOnClickListener(view -> {
-
-            /*
-             * The Baseline Assessment Activity will be
-             * connected here once the assessment module
-             * has been created by the responsible group member.
-             */
-
-            Toast.makeText(
+            Intent intent = new Intent(
                     MainActivity.this,
-                    "Baseline Assessment selected",
-                    Toast.LENGTH_SHORT
-            ).show();
+                    BaselineIntroductionActivity.class
+            );
+            startActivity(intent);
         });
-
 
         // Roadmap - currently locked
         cardRoadmap.setOnClickListener(view -> {
-
             Toast.makeText(
                     MainActivity.this,
                     "Complete the Baseline Assessment to unlock your Roadmap.",
@@ -78,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         });
 
-
         // Assessments - currently locked
         cardAssessments.setOnClickListener(view -> {
-
             Toast.makeText(
                     MainActivity.this,
                     "Complete the Baseline Assessment to unlock Assessments.",
@@ -89,10 +69,8 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         });
 
-
         // Simulation - currently locked
         cardSimulation.setOnClickListener(view -> {
-
             Toast.makeText(
                     MainActivity.this,
                     "Complete the Baseline Assessment to unlock Simulation.",
@@ -100,10 +78,8 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         });
 
-
         // Collaboration - currently locked
         cardCollaboration.setOnClickListener(view -> {
-
             Toast.makeText(
                     MainActivity.this,
                     "Complete the Baseline Assessment to unlock Collaboration.",
@@ -111,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         });
 
-
         // Achievements - currently locked
         cardAchievements.setOnClickListener(view -> {
-
             Toast.makeText(
                     MainActivity.this,
                     "Complete the Baseline Assessment to unlock Achievements.",
