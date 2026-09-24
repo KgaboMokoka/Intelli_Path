@@ -119,7 +119,8 @@ public class AssessmentResultsActivity extends AppCompatActivity {
                 )
         );
 
-        // Generate Roadmap
+        // Boity edit: Open the personalised roadmap overview
+        // and pass the assessment percentage to it.
         btnBackToDashboard.setText("Generate Roadmap");
 
         btnBackToDashboard.setOnClickListener(v -> {
@@ -128,6 +129,10 @@ public class AssessmentResultsActivity extends AppCompatActivity {
                     AssessmentResultsActivity.this,
                     GeneratedRoadmapActivity.class
             );
+
+            // Boity edit: Pass the assessment percentage
+            // to GeneratedRoadmapActivity.
+            roadmapIntent.putExtra("percentage", percentage);
 
             startActivity(roadmapIntent);
 
