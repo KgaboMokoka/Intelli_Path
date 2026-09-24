@@ -36,7 +36,6 @@ public class AssessmentResultsActivity extends AppCompatActivity {
 
         btnBackToDashboard = findViewById(R.id.btnBackToDashboard);
 
-
         // Receive the assessment results
         Intent intent = getIntent();
 
@@ -58,7 +57,6 @@ public class AssessmentResultsActivity extends AppCompatActivity {
         long timeTakenMillis =
                 intent.getLongExtra("timeTakenMillis", 0);
 
-
         // Display score
         int totalQuestions =
                 correctCount + incorrectCount;
@@ -79,7 +77,6 @@ public class AssessmentResultsActivity extends AppCompatActivity {
                 "Incorrect: " + incorrectCount
         );
 
-
         // Display strengths
         if (strengths == null || strengths.trim().isEmpty()) {
 
@@ -91,7 +88,6 @@ public class AssessmentResultsActivity extends AppCompatActivity {
 
             tvStrengths.setText(strengths);
         }
-
 
         // Display areas for improvement
         if (areasImprovement == null
@@ -108,14 +104,12 @@ public class AssessmentResultsActivity extends AppCompatActivity {
             );
         }
 
-
         // Convert milliseconds into minutes and seconds
         long totalSeconds = timeTakenMillis / 1000;
 
         long minutes = totalSeconds / 60;
 
         long seconds = totalSeconds % 60;
-
 
         tvTimeTaken.setText(
                 String.format(
@@ -125,20 +119,17 @@ public class AssessmentResultsActivity extends AppCompatActivity {
                 )
         );
 
+        // Generate Roadmap
+        btnBackToDashboard.setText("Generate Roadmap");
 
-        // Return to Dashboard
         btnBackToDashboard.setOnClickListener(v -> {
 
-            Intent dashboardIntent = new Intent(
+            Intent roadmapIntent = new Intent(
                     AssessmentResultsActivity.this,
-                    MainActivity.class
+                    GeneratedRoadmapActivity.class
             );
 
-            dashboardIntent.addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP
-            );
-
-            startActivity(dashboardIntent);
+            startActivity(roadmapIntent);
 
             finish();
         });
