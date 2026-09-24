@@ -82,11 +82,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LabIntroduction"
+            android:name=".LabIntroductionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LabIntroductionActivity"
+            android:name=".GeneratedRoadmapActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
