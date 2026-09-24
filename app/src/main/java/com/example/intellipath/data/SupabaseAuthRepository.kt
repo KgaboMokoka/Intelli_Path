@@ -51,11 +51,6 @@ object SupabaseAuthRepository {
         fun onError(message: String)
     }
 
-    interface StudentProfileCallback {
-        fun onSuccess(student: StudentRow)
-        fun onError(message: String)
-    }
-
     interface LoginCallback {
         fun onNeedsRegistration()
         fun onComplete()
