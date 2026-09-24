@@ -37,14 +37,30 @@ public class GeneratedRoadmapActivity extends AppCompatActivity {
         });
 
         btnStartRoadmap.setOnClickListener(v -> {
-            Toast.makeText(
-                    GeneratedRoadmapActivity.this,
-                    "Roadmap started!",
-                    Toast.LENGTH_SHORT
-            ).show();
+            // Boity edit: Select the roadmap based on assessment score
+            if (assessmentPercentage < 50) {
+
+                startActivity(new Intent(
+                        GeneratedRoadmapActivity.this,
+                        RoadmapBeginner.class
+                ));
+
+            } else if (assessmentPercentage < 75) {
+
+                startActivity(new Intent(
+                        GeneratedRoadmapActivity.this,
+                        RoadmapIntermediate.class
+                ));
+
+            } else {
+
+                startActivity(new Intent(
+                        GeneratedRoadmapActivity.this,
+                        RoadmapAdvanced.class
+                ));
+            }
         });
     }
-
     private void loadStudentProfile() {
 
         SupabaseAuthRepository.getStudentProfile(
