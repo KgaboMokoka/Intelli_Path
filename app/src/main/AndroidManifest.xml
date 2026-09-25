@@ -42,18 +42,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".CollaborationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GroupInformationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeamChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GroupMembersActivity"
-            android:exported="false" />
-        <activity
             android:name=".StudentManagement"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -83,10 +71,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AssessmentResultsActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".CollaborationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F0FA"
+    android:fillViewport="true"
+    tools:context=".RoadmapAdvanced">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp">
+
+        <!-- ===== CENTER GUIDE ===== -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <!-- ===== HEADER ===== -->
+        <LinearLayout
+            android:id="@+id/card_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@drawable/roadmap_header"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advanced Backend Developer Roadmap"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Think. Design. Solve. Deliver."
+                android:textColor="#C9C6F2"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- Back to Dashboard -->
+        <TextView
+            android:id="@+id/btn_back_dashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="Back to Dashboard"
+            android:textColor="#6C5CE7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_header" />
+
+        <!-- ===== START PILL ===== -->
+        <TextView
+            android:id="@+id/badge_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/roadmap_pill"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="START"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_header" />
+
+        <!-- ===== TIMELINE ROAD ===== -->
+        <View
+            android:id="@+id/timeline_line"
+            android:layout_width="45dp"
+            android:layout_height="0dp"
+            android:background="@drawable/winding_road"
+            app:layout_constraintTop_toBottomOf="@id/badge_start"
+            app:layout_constraintBottom_toTopOf="@id/industry_ready"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <!-- ====================================================== -->
+        <!-- STEP 01 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_01"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="01"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/badge_start"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_01"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginEnd="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_01"
+            app:layout_constraintBottom_toBottomOf="@id/badge_01"
+            app:layout_constraintEnd_toStartOf="@id/badge_01" />
+
+        <LinearLayout
+            android:id="@+id/card_01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guide_center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="System Architecture"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Analyse system requirements&#10;Choose suitable architecture patterns&#10;Compare monolithic and distributed systems&#10;Justify architectural trade-offs"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- STEP 02 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_02"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="02"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/card_01"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_02"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_02"
+            app:layout_constraintBottom_toBottomOf="@id/badge_02"
+            app:layout_constraintStart_toEndOf="@id/badge_02" />
+
+        <LinearLayout
+            android:id="@+id/card_02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_02"
+            app:layout_constraintStart_toEndOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"
+                    android:text="APS"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Advanced Problem Solving"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Analyse complex programming problems&#10;Evaluate algorithm efficiency&#10;Optimise solutions&#10;Apply suitable design patterns"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- STEP 03 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_03"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="03"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/card_02"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_03"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginEnd="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_03"
+            app:layout_constraintBottom_toBottomOf="@id/badge_03"
+            app:layout_constraintEnd_toStartOf="@id/badge_03" />
+
+        <LinearLayout
+            android:id="@+id/card_03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guide_center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"
+                    android:text="DDS"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Database &amp; Distributed Systems"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Choose between SQL and NoSQL approaches&#10;Understand consistency and availability trade-offs&#10;Design distributed data solutions&#10;Evaluate communication between services"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- STEP 04 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_04"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="04"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/card_03"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_04"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_04"
+            app:layout_constraintBottom_toBottomOf="@id/badge_04"
+            app:layout_constraintStart_toEndOf="@id/badge_04" />
+
+        <LinearLayout
+            android:id="@+id/card_04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_04"
+            app:layout_constraintStart_toEndOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"
+                    android:text="SRP"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Security, Reliability &amp; Performance"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Analyse security vulnerabilities&#10;Design for failure and recovery&#10;Identify performance bottlenecks&#10;Consider scalability and reliability"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- STEP 05 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_05"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="05"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/card_04"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_05"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginEnd="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_05"
+            app:layout_constraintBottom_toBottomOf="@id/badge_05"
+            app:layout_constraintEnd_toStartOf="@id/badge_05" />
+
+        <LinearLayout
+            android:id="@+id/card_05"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guide_center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"
+                    android:text="CDA"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Cloud &amp; DevOps Architecture"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Evaluate deployment strategies&#10;Design CI/CD workflows&#10;Understand container-based deployment&#10;Make suitable cloud architecture decisions"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- STEP 06 -->
+        <!-- ====================================================== -->
+
+        <TextView
+            android:id="@+id/badge_06"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/step_circle"
+            android:gravity="center"
+            android:text="06"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/card_05"
+            app:layout_constraintStart_toStartOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="@id/guide_center" />
+
+        <View
+            android:id="@+id/conn_06"
+            android:layout_width="16dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="-2dp"
+            android:background="#6C5CE7"
+            app:layout_constraintTop_toTopOf="@id/badge_06"
+            app:layout_constraintBottom_toBottomOf="@id/badge_06"
+            app:layout_constraintStart_toEndOf="@id/badge_06" />
+
+        <LinearLayout
+            android:id="@+id/card_06"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            android:elevation="3dp"
+            app:layout_constraintTop_toTopOf="@id/badge_06"
+            app:layout_constraintStart_toEndOf="@id/guide_center"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/step_circle"
+                    android:backgroundTint="#E4E0FA"
+                    android:gravity="center"
+                    android:text="BSDC"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Backend System Design Challenge"
+                    android:textColor="#161638"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Analyse a real-world system scenario&#10;Design the backend architecture&#10;Justify your technology choices&#10;Evaluate security, scalability and performance"
+                android:textColor="#3A3A55"
+                android:textSize="12.5sp" />
+
+        </LinearLayout>
+
+        <!-- ====================================================== -->
+        <!-- FOOTER CARD -->
+        <!-- ====================================================== -->
+
+        <LinearLayout
+            android:id="@+id/card_footer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="14dp"
+            android:background="@drawable/roadmap_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guide_center"
+            app:layout_constraintTop_toBottomOf="@id/card_06">
+
+            <TextView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/step_circle"
+                android:backgroundTint="#E4E0FA"
+                android:gravity="center"
+                android:text=""
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="You've completed the advanced roadmap. Continue to apply your skills."
+                android:textColor="#161638"
+                android:textStyle="bold"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- ===== INDUSTRY READY FINISH ===== -->
+
+        <LinearLayout
+            android:id="@+id/industry_ready"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="22dp"
+            android:background="@drawable/roadmap_header"
+            android:elevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_footer"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="INDUSTRY READY!"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="You've completed your backend roadmap!"
+                android:textColor="#E4E0FA"
+                android:textSize="14sp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Build. Apply. Grow."
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
