@@ -240,7 +240,7 @@
                         android:layout_height="42dp"
                         android:background="#EEEAFB"
                         android:gravity="center"
-                        android:text="</>"
+                        android:text="&lt;/&gt;"
                         android:textColor="#6744B7"
                         android:textSize="15sp"
                         android:textStyle="bold" />

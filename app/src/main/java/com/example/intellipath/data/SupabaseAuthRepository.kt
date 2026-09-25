@@ -95,6 +95,14 @@ object SupabaseAuthRepository {
         }
     }
 
+    // Added alias for Java interoperability (GeneratedRoadmapActivity)
+    @JvmStatic
+    fun getStudentProfile(
+        callback: StudentProfileCallback
+    ) {
+        getCurrentStudentProfile(callback)
+    }
+
     @JvmStatic
     fun signUp(
         firstName: String,
@@ -115,8 +123,6 @@ object SupabaseAuthRepository {
                         put("student_number", studentNumber)
                     }
                 }
-                // No students row insert here — no session exists yet until the
-                // user confirms their email. The row is created on first login instead.
                 withContext(Dispatchers.Main) { callback.onSuccess() }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) { callback.onError(e.message ?: "Sign up failed") }
@@ -166,8 +172,6 @@ object SupabaseAuthRepository {
                     .decodeSingleOrNull<StudentRow>()
 
                 if (existing == null) {
-                    // First login after confirming — create the students row now,
-                    // using the metadata captured at sign-up time.
                     val metadata = user.userMetadata
                     val firstName = metadata?.get("first_name")?.jsonPrimitive?.content ?: ""
                     val lastName = metadata?.get("last_name")?.jsonPrimitive?.content ?: ""
