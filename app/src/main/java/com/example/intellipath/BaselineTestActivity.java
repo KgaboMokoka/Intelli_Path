@@ -1,7 +1,6 @@
 package com.example.intellipath;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.content.Intent;
-import android.os.Bundle;
 
 public class BaselineTestActivity extends AppCompatActivity {
 
@@ -1344,19 +1341,10 @@ public class BaselineTestActivity extends AppCompatActivity {
                         Math.round(weakestScore) +
                         "%)";
 
-// Mark the Baseline Assessment as completed
-        SharedPreferences preferences =
-                getSharedPreferences("IntelliPathPrefs", MODE_PRIVATE);
-
-        preferences.edit()
-                .putBoolean("baseline_completed", true)
-                .apply();
-
         Intent intent = new Intent(
                 BaselineTestActivity.this,
                 AssessmentCompleteActivity.class
         );
-
 
         intent.putExtra(
                 "correctCount",
