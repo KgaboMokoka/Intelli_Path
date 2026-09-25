@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="ΓåÉ Back to Dashboard"
+            android:text="Back to Dashboard"
             android:textColor="#6C5CE7"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -158,9 +158,8 @@
                     android:layout_height="34dp"
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
-                    android:gravity="center"
-                    android:text="≡ƒÅù"
-                    android:textSize="16sp" />
+                    android:gravity="center"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Analyse system requirements&#10;ΓÇó Choose suitable architecture patterns&#10;ΓÇó Compare monolithic and distributed systems&#10;ΓÇó Justify architectural trade-offs"
+                android:text="Analyse system requirements&#10;Choose suitable architecture patterns&#10;Compare monolithic and distributed systems&#10;Justify architectural trade-offs"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -239,7 +238,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒºá"
+                    android:text="APS"
                     android:textSize="16sp" />
 
                 <TextView
@@ -258,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Analyse complex programming problems&#10;ΓÇó Evaluate algorithm efficiency&#10;ΓÇó Optimise solutions&#10;ΓÇó Apply suitable design patterns"
+                android:text="Analyse complex programming problems&#10;Evaluate algorithm efficiency&#10;Optimise solutions&#10;Apply suitable design patterns"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -319,7 +318,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒùâ"
+                    android:text="DDS"
                     android:textSize="16sp" />
 
                 <TextView
@@ -338,7 +337,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Choose between SQL and NoSQL approaches&#10;ΓÇó Understand consistency and availability trade-offs&#10;ΓÇó Design distributed data solutions&#10;ΓÇó Evaluate communication between services"
+                android:text="Choose between SQL and NoSQL approaches&#10;Understand consistency and availability trade-offs&#10;Design distributed data solutions&#10;Evaluate communication between services"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -399,7 +398,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒ¢í"
+                    android:text="SRP"
                     android:textSize="16sp" />
 
                 <TextView
@@ -418,7 +417,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Analyse security vulnerabilities&#10;ΓÇó Design for failure and recovery&#10;ΓÇó Identify performance bottlenecks&#10;ΓÇó Consider scalability and reliability"
+                android:text="Analyse security vulnerabilities&#10;Design for failure and recovery&#10;Identify performance bottlenecks&#10;Consider scalability and reliability"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -479,7 +478,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="Γÿü"
+                    android:text="CDA"
                     android:textSize="16sp" />
 
                 <TextView
@@ -498,7 +497,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Evaluate deployment strategies&#10;ΓÇó Design CI/CD workflows&#10;ΓÇó Understand container-based deployment&#10;ΓÇó Make suitable cloud architecture decisions"
+                android:text="Evaluate deployment strategies&#10;Design CI/CD workflows&#10;Understand container-based deployment&#10;Make suitable cloud architecture decisions"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -559,7 +558,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒÅå"
+                    android:text="BSDC"
                     android:textSize="16sp" />
 
                 <TextView
@@ -578,7 +577,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Analyse a real-world system scenario&#10;ΓÇó Design the backend architecture&#10;ΓÇó Justify your technology choices&#10;ΓÇó Evaluate security, scalability and performance"
+                android:text="Analyse a real-world system scenario&#10;Design the backend architecture&#10;Justify your technology choices&#10;Evaluate security, scalability and performance"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -609,7 +608,7 @@
                 android:background="@drawable/step_circle"
                 android:backgroundTint="#E4E0FA"
                 android:gravity="center"
-                android:text="≡ƒÅü"
+                android:text=""
                 android:textSize="16sp" />
 
             <TextView
@@ -646,7 +645,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="≡ƒÄë"
+                android:text=""
                 android:textSize="32sp" />
 
             <TextView
@@ -672,7 +671,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="≡ƒÜÇ Build. Apply. Grow."
+                android:text="Build. Apply. Grow."
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold"
