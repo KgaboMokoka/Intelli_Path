@@ -1,5 +1,6 @@
 package com.example.intellipath;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ public class GeneratedRoadmapActivity extends AppCompatActivity {
 
         btnStartRoadmap.setOnClickListener(v -> {
             // Boity edit: Select the roadmap based on assessment score
+            double assessmentPercentage = getIntent().getIntExtra("percentage", 0);
+
             if (assessmentPercentage < 50) {
 
                 startActivity(new Intent(

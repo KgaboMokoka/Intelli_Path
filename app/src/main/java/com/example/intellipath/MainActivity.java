@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
         cardSimulation = findViewById(R.id.cardSimulation);
         cardCollaboration = findViewById(R.id.cardCollaboration);
         cardAchievements = findViewById(R.id.cardAchievements);
+
+        // Dashboard text views (Mapped to existing XML IDs)
+        tvUserName = findViewById(R.id.tvGreeting);               // Maps to "Hello, Lebo!"
+        tvReadinessScore = findViewById(R.id.tvReadinessScore);   // Maps to Score text
+        tvReadinessStatus = findViewById(R.id.tvBaselineMessage); // Maps to baseline status text
     }
 
 
@@ -118,14 +123,13 @@ public class MainActivity extends AppCompatActivity {
 
                         String firstName = student.getFirst_name();
 
-                        if (firstName == null ||
-                                firstName.trim().isEmpty()) {
+                        if (firstName == null || firstName.trim().isEmpty()) {
 
-                            tvUserName.setText("Student");
+                            tvUserName.setText("Hello, Student!");
 
                         } else {
 
-                            tvUserName.setText(firstName);
+                            tvUserName.setText("Hello, " + firstName + "!");
                         }
                     }
 
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                          * Do not prevent the Dashboard from opening
                          * if the profile cannot be retrieved.
                          */
-                        tvUserName.setText("Student");
+                        tvUserName.setText("Hello, Student!");
                     }
                 }
         );

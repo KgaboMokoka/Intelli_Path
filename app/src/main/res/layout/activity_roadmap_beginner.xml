@@ -68,7 +68,7 @@
             android:layout_marginTop="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="ΓåÉ Back to Dashboard"
+            android:text="Back to Dashboard"
             android:textColor="#6C5CE7"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -160,7 +160,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒîÉ"
+                    android:text="🌐"
                     android:textSize="16sp" />
 
                 <TextView
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó How the internet works\nΓÇó What is a server?\nΓÇó What is HTTP/HTTPS?\nΓÇó Learn about clients, servers and APIs"
+                android:text="How the internet works\nWhat is a server?\nWhat is HTTP/HTTPS?\nLearn about clients, servers and APIs"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Choose one (Java, Python, C#, Go, PHP, JavaScript - Node.js, Rust)\nΓÇó Learn the syntax and fundamentals\nΓÇó Solve small coding problems"
+                android:text="Choose one (Java, Python, C#, Go, PHP, JavaScript - Node.js, Rust)\nLearn the syntax and fundamentals\nSolve small coding problems"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -311,7 +311,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒôè"
+                    android:text="📊"
                     android:textSize="16sp" />
 
                 <TextView
@@ -329,7 +329,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Variables, loops, functions\nΓÇó Arrays, lists, maps, sets\nΓÇó Basic algorithms and problem solving"
+                android:text="Variables, loops, functions\nArrays, lists, maps, sets\nBasic algorithms and problem solving"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -386,7 +386,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒùä"
+                    android:text="🗄️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -404,7 +404,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Learn SQL (e.g. MySQL, PostgreSQL)\nΓÇó Understand database design\nΓÇó Practice CRUD operations\nΓÇó Learn about NoSQL (e.g. MongoDB)"
+                android:text="Learn SQL (e.g. MySQL, PostgreSQL)\nUnderstand database design\nPractice CRUD operations\nLearn about NoSQL (e.g. MongoDB)"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -461,7 +461,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="ΓÜÖ∩╕Å"
+                    android:text="⚙️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -479,7 +479,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Choose a framework (e.g. Spring Boot, Express.js, Django, ASP.NET Core)\nΓÇó Build RESTful APIs\nΓÇó Handle requests, responses and routing"
+                android:text="Choose a framework (e.g. Spring Boot, Express.js, Django, ASP.NET Core)\nBuild RESTful APIs\nHandle requests, responses and routing"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -536,7 +536,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒûÑ"
+                    android:text="🖥️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -554,7 +554,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó API design (REST principles)\nΓÇó Authentication &amp; authorization\nΓÇó Middleware\nΓÇó Error handling &amp; logging\nΓÇó File handling\nΓÇó Environment variables"
+                android:text="API design (REST principles)\nAuthentication &amp; authorization\nMiddleware\nError handling &amp; logging\nFile handling\nEnvironment variables"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -611,7 +611,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒöÇ"
+                    android:text="🔀"
                     android:textSize="16sp" />
 
                 <TextView
@@ -629,7 +629,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Learn Git and GitHub\nΓÇó Practice branching, commits and pull requests\nΓÇó Work on real or open-source projects"
+                android:text="Learn Git and GitHub\nPractice branching, commits and pull requests\nWork on real or open-source projects"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -686,7 +686,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="Γÿü∩╕Å"
+                    android:text="☁️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -704,7 +704,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Deploy your API (e.g. Render, Railway, Vercel, AWS)\nΓÇó Learn about servers and hosting\nΓÇó Understand CI/CD basics\nΓÇó Manage environment variables"
+                android:text="Deploy your API (e.g. Render, Railway, Vercel, AWS)\nLearn about servers and hosting\nUnderstand CI/CD basics\nManage environment variables"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -761,7 +761,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒÅå"
+                    android:text="🏆"
                     android:textSize="16sp" />
 
                 <TextView
@@ -779,7 +779,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Create and complete personal projects\nΓÇó Build a portfolio (e.g. GitHub)\nΓÇó Explore advanced topics (scaling, microservices, message queues)\nΓÇó Keep learning and improving"
+                android:text="Create and complete personal projects\nBuild a portfolio (e.g. GitHub)\nExplore advanced topics (scaling, microservices, message queues)\nKeep learning and improving"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
         </LinearLayout>
@@ -806,7 +806,7 @@
                 android:background="@drawable/step_circle"
                 android:backgroundTint="#E4E0FA"
                 android:gravity="center"
-                android:text="≡ƒôê"
+                android:text="📈"
                 android:textSize="16sp" />
 
             <TextView

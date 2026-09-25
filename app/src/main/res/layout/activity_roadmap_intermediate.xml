@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="ΓåÉ Back to Dashboard"
+            android:text="Back to Dashboard"
             android:textColor="#6C5CE7"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -159,7 +159,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒÆ╗"
+                    android:text="💻"
                     android:textSize="16sp" />
 
                 <TextView
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Object-oriented programming&#10;ΓÇó Clean and reusable code&#10;ΓÇó Algorithms and data structures&#10;ΓÇó Solve more complex coding problems"
+                android:text="Object-oriented programming&#10;Clean and reusable code&#10;Algorithms and data structures&#10;Solve more complex coding problems"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -239,7 +239,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒùä"
+                    android:text=""
                     android:textSize="16sp" />
 
                 <TextView
@@ -258,7 +258,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Complex SQL queries and joins&#10;ΓÇó Relationships and database design&#10;ΓÇó Indexing and query optimisation&#10;ΓÇó Transactions"
+                android:text="Complex SQL queries and joins&#10;Relationships and database design&#10;Indexing and query optimisation&#10;Transactions"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -319,7 +319,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒöù"
+                    android:text="🔗"
                     android:textSize="16sp" />
 
                 <TextView
@@ -338,7 +338,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Build REST APIs&#10;ΓÇó Use a backend framework&#10;ΓÇó Connect applications to databases&#10;ΓÇó Implement authentication"
+                android:text="Build REST APIs&#10;Use a backend framework&#10;Connect applications to databases&#10;Implement authentication"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -399,7 +399,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒº¬"
+                    android:text="🧪"
                     android:textSize="16sp" />
 
                 <TextView
@@ -418,7 +418,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Unit testing&#10;ΓÇó Integration testing&#10;ΓÇó Debug application errors&#10;ΓÇó Handle edge cases and improve reliability"
+                android:text="Unit testing&#10;Integration testing&#10;Debug application errors&#10;Handle edge cases and improve reliability"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -479,7 +479,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒöÆ"
+                    android:text="🔒"
                     android:textSize="16sp" />
 
                 <TextView
@@ -498,7 +498,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Secure APIs&#10;ΓÇó Input validation&#10;ΓÇó Authentication and authorisation&#10;ΓÇó Identify and improve performance problems"
+                android:text="Secure APIs&#10;Input validation&#10;Authentication and authorisation&#10;Identify and improve performance problems"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -559,7 +559,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="Γÿü∩╕Å"
+                    android:text="☁️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -578,7 +578,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Deploy applications&#10;ΓÇó Environment configuration&#10;ΓÇó CI/CD basics&#10;ΓÇó Monitor applications"
+                android:text="Deploy applications&#10;Environment configuration&#10;CI/CD basics&#10;Monitor applications"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -639,7 +639,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="≡ƒÅå"
+                    android:text="🏆"
                     android:textSize="16sp" />
 
                 <TextView
@@ -658,7 +658,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
-                android:text="ΓÇó Plan a complete backend system&#10;ΓÇó Develop and test the project&#10;ΓÇó Document your work&#10;ΓÇó Showcase the project on GitHub"
+                android:text="Plan a complete backend system&#10;Develop and test the project&#10;Document your work&#10;Showcase the project on GitHub"
                 android:textColor="#3A3A55"
                 android:textSize="12.5sp" />
 
@@ -689,7 +689,7 @@
                 android:background="@drawable/step_circle"
                 android:backgroundTint="#E4E0FA"
                 android:gravity="center"
-                android:text="≡ƒôê"
+                android:text="📈"
                 android:textSize="16sp" />
 
             <TextView
