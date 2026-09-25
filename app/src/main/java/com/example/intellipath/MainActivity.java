@@ -12,7 +12,13 @@ import androidx.cardview.widget.CardView;
 import com.example.intellipath.data.StudentRow;
 import com.example.intellipath.data.SupabaseAuthRepository;
 
+import com.example.intellipath.data.AssessmentRepository;
+import com.example.intellipath.data.StudentAssessmentReadRow;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String BASELINE_ASSESSMENT_ID = "c146a692-332e-4593-b1b1-3f4e198a6794";
+    private boolean baselineCompletedCache = false;
 
     // ============================================================
     // DASHBOARD CARDS
@@ -161,67 +167,68 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadDashboardState() {
 
-        boolean baselineCompleted =
-                dashboardPreferences.getBoolean(
-                        KEY_BASELINE_COMPLETED,
-                        false
-                );
+        tvReadinessScore.setText("Loading...");
+        tvReadinessStatus.setText("Checking your assessment status...");
+        lockDashboardCards();
 
-        String savedReadinessScore =
-                dashboardPreferences.getString(
-                        KEY_READINESS_SCORE,
-                        ""
-                );
+        AssessmentRepository.fetchLatestBaselineResult(
+                BASELINE_ASSESSMENT_ID,
+                new AssessmentRepository.Callback<StudentAssessmentReadRow>() {
 
-        // --------------------------------------------------------
-        // BASELINE NOT COMPLETED
-        // --------------------------------------------------------
+                    @Override
+                    public void onSuccess(StudentAssessmentReadRow result) {
 
-        if (!baselineCompleted) {
+                        if (result == null) {
 
-            tvReadinessScore.setText(
-                    "Not Calculated Yet"
-            );
+                            baselineCompletedCache = false;
 
-            tvReadinessStatus.setText(
-                    "Complete your Baseline Assessment to unlock "
-                            + "your personalised roadmap and progress tracking."
-            );
+                            tvReadinessScore.setText("Not Calculated Yet");
+                            tvReadinessStatus.setText(
+                                    "Complete your Baseline Assessment to unlock "
+                                            + "your personalised roadmap and progress tracking."
+                            );
 
-            lockDashboardCards();
+                            lockDashboardCards();
 
-        }
+                        } else {
 
-        // --------------------------------------------------------
-        // BASELINE COMPLETED
-        // --------------------------------------------------------
+                            baselineCompletedCache = true;
 
-        else {
+                            Double percentage = result.getPercentage();
 
-            if (savedReadinessScore == null ||
-                    savedReadinessScore.trim().isEmpty()) {
+                            if (percentage != null) {
+                                baselinePercentageCache = (int) Math.round(percentage);
+                            }
 
-                /*
-                 * The score will eventually come from
-                 * assessment_results.readiness_score.
-                 */
-                tvReadinessScore.setText(
-                        "Calculated"
-                );
+                            if (percentage != null) {
+                                tvReadinessScore.setText(Math.round(percentage) + "%");
+                            } else {
+                                tvReadinessScore.setText("Calculated");
+                            }
 
-            } else {
+                            tvReadinessStatus.setText("Your personalised readiness profile is ready.");
 
-                tvReadinessScore.setText(
-                        savedReadinessScore + "%"
-                );
-            }
+                            unlockDashboardCards();
+                        }
+                    }
 
-            tvReadinessStatus.setText(
-                    "Your personalised readiness profile is ready."
-            );
+                    @Override
+                    public void onError(String message) {
 
-            unlockDashboardCards();
-        }
+                        // Fail safe: treat as not-yet-completed rather than
+                        // blocking the dashboard entirely.
+                        baselineCompletedCache = false;
+
+                        tvReadinessScore.setText("Not Calculated Yet");
+                        tvReadinessStatus.setText(
+                                "Complete your Baseline Assessment to unlock "
+                                        + "your personalised roadmap and progress tracking."
+                        );
+
+                        lockDashboardCards();
+                    }
+                }
+        );
     }
 
 
@@ -319,10 +326,7 @@ public class MainActivity extends AppCompatActivity {
         cardBaseline.setOnClickListener(view -> {
 
             boolean baselineCompleted =
-                    dashboardPreferences.getBoolean(
-                            KEY_BASELINE_COMPLETED,
-                            false
-                    );
+                    isBaselineCompleted();
 
             if (!baselineCompleted) {
 
@@ -364,16 +368,14 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                /*
-                 * Roadmap Activity will be connected here
-                 * once the responsible group member's Activity
-                 * is available.
-                 */
-                Toast.makeText(
+                Intent intent = new Intent(
                         MainActivity.this,
-                        "Roadmap selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        GeneratedRoadmapActivity.class
+                );
+
+                intent.putExtra("percentage", baselinePercentageCache);
+
+                startActivity(intent);
             }
         });
 
@@ -492,12 +494,9 @@ public class MainActivity extends AppCompatActivity {
     // ============================================================
 
     private boolean isBaselineCompleted() {
-
-        return dashboardPreferences.getBoolean(
-                KEY_BASELINE_COMPLETED,
-                false
-        );
+        return baselineCompletedCache;
     }
+    private int baselinePercentageCache = 0;
 
 
     // ============================================================

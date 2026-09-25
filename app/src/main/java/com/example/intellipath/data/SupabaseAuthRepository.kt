@@ -227,33 +227,10 @@ object SupabaseAuthRepository {
 
                 withContext(Dispatchers.Main) { callback.onSuccess() }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { callback.onError(e.message ?: "Failed to update profile") }
-            }
-        }
-    }
-    @JvmStatic
-    fun getStudentProfile(
-        callback: StudentProfileCallback
-    ) {
-        scope.launch {
-            try {
-                val userId = SupabaseProvider.client.auth.currentUserOrNull()?.id
-                    ?: throw Exception("No authenticated user found")
-
-                val profile = SupabaseProvider.client.postgrest["students"]
-                    .select {
-                        filter { eq("student_id", userId) }
-                    }
-                    .decodeSingleOrNull<StudentRow>()
-                    ?: throw Exception("Student profile not found")
-
                 withContext(Dispatchers.Main) {
-                    callback.onSuccess(profile)
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    callback.onError(e.message ?: "Failed to load student profile")
+                    callback.onError(
+                        e.message ?: "Failed to update profile"
+                    )
                 }
             }
         }
