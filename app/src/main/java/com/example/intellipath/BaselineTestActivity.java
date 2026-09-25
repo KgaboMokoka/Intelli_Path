@@ -7,12 +7,18 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.intellipath.data.SupabaseAuthRepository;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class BaselineTestActivity extends AppCompatActivity {
 
@@ -1341,48 +1347,101 @@ public class BaselineTestActivity extends AppCompatActivity {
                         Math.round(weakestScore) +
                         "%)";
 
-        Intent intent = new Intent(
-                BaselineTestActivity.this,
-                AssessmentCompleteActivity.class
-        );
+        /*
+         * Save the completed baseline assessment to Supabase BEFORE
+         * opening AssessmentCompleteActivity.
+         *
+         * This creates:
+         * 1. A student_assessments row linked to the logged-in student
+         *    and the Baseline Assessment in assessments.
+         * 2. An assessment_results row linked to that student_assessment.
+         */
+        String completedAt = createTimestamp(System.currentTimeMillis());
 
-        intent.putExtra(
-                "correctCount",
-                correctCount
-        );
+        String startedAt = createTimestamp(testStartTime);
 
-        intent.putExtra(
-                "incorrectCount",
-                incorrectCount
-        );
+        int finalCorrectCount = correctCount;
+        SupabaseAuthRepository.saveBaselineAssessment(
+                correctCount,
+                percentage,
+                strengths,
+                areasImprovement,
+                startedAt,
+                completedAt,
+                new SupabaseAuthRepository.AssessmentSaveCallback() {
 
-        intent.putExtra(
-                "percentage",
-                percentage
-        );
+                    @Override
+                    public void onSuccess() {
 
-        intent.putExtra(
-                "strengths",
-                strengths
-        );
+                        Intent intent = new Intent(
+                                BaselineTestActivity.this,
+                                AssessmentCompleteActivity.class
+                        );
 
-        intent.putExtra(
-                "areasImprovement",
-                areasImprovement
-        );
+                        intent.putExtra(
+                                "correctCount",
+                                finalCorrectCount
+                        );
 
-        intent.putExtra(
-                "timeTakenMillis",
-                timeTakenMillis
-        );
+                        intent.putExtra(
+                                "incorrectCount",
+                                incorrectCount
+                        );
 
-        intent.putExtra(
-                "completionTimeMillis",
-                System.currentTimeMillis()
-        );
+                        intent.putExtra(
+                                "percentage",
+                                percentage
+                        );
 
-        startActivity(intent);
-        finish();
+                        intent.putExtra(
+                                "strengths",
+                                strengths
+                        );
+
+                        intent.putExtra(
+                                "areasImprovement",
+                                areasImprovement
+                        );
+
+                        intent.putExtra(
+                                "timeTakenMillis",
+                                timeTakenMillis
+                        );
+
+                        intent.putExtra(
+                                "completionTimeMillis",
+                                System.currentTimeMillis()
+                        );
+
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+
+                        Toast.makeText(
+                                BaselineTestActivity.this,
+                                "Could not save your assessment. "
+                                        + "Please try again.\n" + message,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    private String createTimestamp(long timeMillis) {
+
+        SimpleDateFormat formatter =
+                new SimpleDateFormat(
+                        "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+                        Locale.US
+                );
+
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        return formatter.format(new Date(timeMillis));
     }
 
     @Override
