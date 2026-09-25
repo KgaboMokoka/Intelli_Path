@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.intellipath.data.AssessmentRepository;
+import kotlin.Unit;
+
 public class BaselineTestActivity extends AppCompatActivity {
 
     private android.widget.TextView tvQuestionNumber;
@@ -1379,6 +1382,29 @@ public class BaselineTestActivity extends AppCompatActivity {
         intent.putExtra(
                 "completionTimeMillis",
                 System.currentTimeMillis()
+        );
+
+        AssessmentRepository.saveBaselineResult(
+                "PASTE_YOUR_ASSESSMENT_ID_HERE",
+                correctCount,
+                percentage,
+                strengths,
+                areasImprovement,
+                new AssessmentRepository.Callback<Unit>() {
+                    @Override
+                    public void onSuccess(Unit result) {
+                        // No UI action needed — navigation continues below regardless.
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(
+                                BaselineTestActivity.this,
+                                "Result not saved to server: " + message,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
         );
 
         startActivity(intent);

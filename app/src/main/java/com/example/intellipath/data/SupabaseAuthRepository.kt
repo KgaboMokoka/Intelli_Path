@@ -228,7 +228,11 @@ object SupabaseAuthRepository {
 
                 withContext(Dispatchers.Main) { callback.onSuccess() }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { callback.onError(e.message ?: "Failed to update profile") }
+                withContext(Dispatchers.Main) {
+                    callback.onError(
+                        e.message ?: "Failed to update profile"
+                    )
+                }
             }
         }
     }
