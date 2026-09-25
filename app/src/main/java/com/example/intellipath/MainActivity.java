@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initialiseViews() {
 
+        // Dashboard text
+        tvUserName = findViewById(R.id.tvGreeting);
+        tvReadinessScore = findViewById(R.id.tvReadinessScore);
+        tvReadinessStatus = findViewById(R.id.tvBaselineMessage);
+
         // Dashboard cards
         cardBaseline = findViewById(R.id.cardBaseline);
         cardRoadmap = findViewById(R.id.cardRoadmap);
@@ -448,18 +453,14 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                /*
-                 * Collaboration Activity will be connected here
-                 * once available.
-                 */
-                Toast.makeText(
+                Intent intent = new Intent(
                         MainActivity.this,
-                        "Collaboration selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        CollaborationActivity.class
+                );
+
+                startActivity(intent);
             }
         });
-
 
         // ========================================================
         // ACHIEVEMENTS

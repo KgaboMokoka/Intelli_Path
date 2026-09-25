@@ -46,8 +46,9 @@ object SupabaseAuthRepository {
         fun onSuccess()
         fun onError(message: String)
     }
+
     interface StudentProfileCallback {
-        fun onSuccess(profile: StudentRow)
+        fun onSuccess(student: StudentRow)
         fun onError(message: String)
     }
 
