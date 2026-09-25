@@ -4,20 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.intellipath.data.SupabaseAuthRepository;
-
 import org.jetbrains.annotations.NotNull;
 
 public class SignUpPage extends AppCompatActivity {
 
-    private EditText firstName, lastName, studentNumber, email, password;
+    private EditText firstName, lastName, studentNumber, email, password, confirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +23,40 @@ public class SignUpPage extends AppCompatActivity {
         studentNumber = findViewById(R.id.studentNumber);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
 
         findViewById(R.id.registerButton).setOnClickListener(v -> signUp());
+        findViewById(R.id.loginPage).setOnClickListener(v ->
+                startActivity(new Intent(SignUpPage.this, LoginPage.class)));
     }
 
     private void signUp() {
-        String firstNameVal     = firstName.getText().toString().trim();
-        String lastNameVal      = lastName.getText().toString().trim();
-        String studentNumberVal = studentNumber.getText().toString().trim();
-        String emailVal         = email.getText().toString().trim();
-        String passwordVal      = password.getText().toString().trim();
+        String firstNameVal        = firstName.getText().toString().trim();
+        String lastNameVal         = lastName.getText().toString().trim();
+        String studentNumberVal    = studentNumber.getText().toString().trim();
+        String emailVal            = email.getText().toString().trim();
+        String passwordVal         = password.getText().toString();
+        String confirmPasswordVal  = confirmPassword.getText().toString();
 
-        if (emailVal.isEmpty() || passwordVal.isEmpty() || studentNumberVal.isEmpty()) {
+        if (firstNameVal.isEmpty() || lastNameVal.isEmpty() || emailVal.isEmpty()
+                || passwordVal.isEmpty() || confirmPasswordVal.isEmpty() || studentNumberVal.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO: Add validation for password !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if (!passwordVal.equals(confirmPasswordVal)) {
+            Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //TODO: Add validation for password strength !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         SupabaseAuthRepository.signUp(firstNameVal, lastNameVal, studentNumberVal, emailVal, passwordVal,
                 new SupabaseAuthRepository.AuthCallback() {
                     @Override
                     public void onSuccess() {
-                        startActivity(new Intent(SignUpPage.this, MainActivity.class));
+                        Intent intent = new Intent(SignUpPage.this, ConfirmEmailPage.class);
+                        intent.putExtra(ConfirmEmailPage.EXTRA_EMAIL, emailVal);
+                        startActivity(intent);
                         finish();
                     }
 
