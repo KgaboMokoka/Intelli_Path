@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,14 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IntelliPath">
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".SignUpPage"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Launcher -->
         <activity
             android:name=".LoginPage"
             android:exported="true"
@@ -29,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Authentication & Onboarding -->
+        <activity
+            android:name=".SignUpPage"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RegistrationTwo"
             android:exported="false"
@@ -37,6 +40,14 @@
             android:name=".ConfirmEmailPage"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- Main Dashboard -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Admin -->
         <activity
             android:name=".AdminDash"
             android:exported="false"
@@ -57,6 +68,8 @@
             android:name=".AdminSettings"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- Baseline Assessment -->
         <activity
             android:name=".BaselineIntroductionActivity"
             android:exported="false"
@@ -71,6 +84,56 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AssessmentResultsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Roadmaps -->
+        <activity
+            android:name=".GeneratedRoadmapActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RoadmapBeginner"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RoadmapIntermediate"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RoadmapAdvanced"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Lab Simulation -->
+        <activity
+            android:name=".LabIntroductionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".LabSimulationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".LabResultsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Collaboration & Team Chat -->
+        <activity
+            android:name=".CollaborationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".GroupInformationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".GroupMembersActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".TeamChatActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

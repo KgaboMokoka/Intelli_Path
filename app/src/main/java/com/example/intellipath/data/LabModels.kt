@@ -2,16 +2,12 @@ package com.example.intellipath.data
 
 import kotlinx.serialization.Serializable
 
-// Property names match table columns directly (snake_case), same
-// convention as NewStudent / StudentRow in SupabaseAuthRepository.kt —
-// no @SerialName needed.
-
 @Serializable
 data class LabStep(
     val step_id: String,
     val lab_id: String,
     val order_index: Int,
-    val step_type: String, // "single_select" | "multi_select" | "image_select"
+    val step_type: String,
     val prompt: String,
     val requires_justification: Boolean
 )
@@ -30,7 +26,7 @@ data class LabStepOption(
 data class NewLabAttempt(
     val student_id: String,
     val lab_id: String,
-    val status: String = "In Progress"
+    val status: String
 )
 
 @Serializable
