@@ -28,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Menu -->
+
         <TextView
             android:id="@+id/menuButton"
             android:layout_width="35dp"
@@ -41,6 +42,7 @@
             android:contentDescription="Open menu" />
 
         <!-- App Name -->
+
         <TextView
             android:id="@+id/appName"
             android:layout_width="0dp"
@@ -53,6 +55,7 @@
             android:textStyle="bold" />
 
         <!-- Profile -->
+
         <TextView
             android:id="@+id/profileButton"
             android:layout_width="38dp"
@@ -136,7 +139,6 @@
                     android:orientation="horizontal"
                     android:padding="15dp">
 
-                    <!-- Score Icon -->
                     <TextView
                         android:id="@+id/scoreIcon"
                         android:layout_width="42dp"
@@ -372,6 +374,7 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:id="@+id/tvRoadmapStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -432,6 +435,7 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:id="@+id/tvAssessmentsStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -492,6 +496,7 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:id="@+id/tvSimulationStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -552,6 +557,7 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:id="@+id/tvCollaborationStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -612,6 +618,7 @@
                             android:textSize="9sp" />
 
                         <TextView
+                            android:id="@+id/tvAchievementsStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -647,8 +654,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
         <!-- Dashboard -->
+
         <LinearLayout
             android:id="@+id/navDashboard"
             android:layout_width="0dp"
@@ -678,6 +685,7 @@
 
 
         <!-- Assessments -->
+
         <LinearLayout
             android:id="@+id/navAssessments"
             android:layout_width="0dp"
@@ -706,6 +714,7 @@
 
 
         <!-- Progress -->
+
         <LinearLayout
             android:id="@+id/navProgress"
             android:layout_width="0dp"
@@ -734,6 +743,7 @@
 
 
         <!-- Profile -->
+
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
