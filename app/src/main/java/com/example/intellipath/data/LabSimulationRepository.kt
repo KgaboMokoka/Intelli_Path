@@ -73,7 +73,7 @@ object LabSimulationRepository {
         scope.launch {
             try {
                 val attempt = SupabaseProvider.client.postgrest["student_lab_attempts"]
-                    .insert(NewLabAttempt(student_id = studentId, lab_id = labId)) { select() }
+                    .insert(NewLabAttempt(student_id = studentId, lab_id = labId, status = "In Progress")) { select() }
                     .decodeSingle<StudentLabAttempt>()
 
                 withContext(Dispatchers.Main) { callback.onSuccess(attempt) }

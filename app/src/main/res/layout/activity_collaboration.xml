@@ -1,11 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8FC">
 
-    <!-- HEADER -->
+    <!-- ========================================================= -->
+    <!-- TOP HEADER -->
+    <!-- ========================================================= -->
 
     <LinearLayout
         android:id="@+id/topHeader"
@@ -16,9 +21,11 @@
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Menu / Back -->
 
         <TextView
             android:id="@+id/menuButton"
@@ -27,7 +34,12 @@
             android:gravity="center"
             android:text="☰"
             android:textColor="#FFFFFF"
-            android:textSize="21sp" />
+            android:textSize="21sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Menu" />
+
+        <!-- App Name -->
 
         <TextView
             android:id="@+id/appName"
@@ -40,6 +52,8 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
+        <!-- Profile -->
+
         <TextView
             android:id="@+id/profileButton"
             android:layout_width="38dp"
@@ -47,28 +61,42 @@
             android:background="#E9E7F8"
             android:gravity="center"
             android:text="👤"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Profile" />
 
     </LinearLayout>
 
 
-    <!-- MAIN SCROLL -->
+    <!-- ========================================================= -->
+    <!-- SCROLLABLE CONTENT -->
+    <!-- ========================================================= -->
 
     <ScrollView
         android:id="@+id/collaborationScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/topHeader"
+        android:clipToPadding="false"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/topHeader">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="20dp">
+
+            <!-- ================================================= -->
+            <!-- TITLE -->
+            <!-- ================================================= -->
 
             <TextView
                 android:id="@+id/tvCollaborationTitle"
@@ -86,16 +114,28 @@
                 android:layout_marginTop="5dp"
                 android:text="Connect, learn and grow together."
                 android:textColor="#626477"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:lineSpacingExtra="2dp" />
+
+
+            <!-- ================================================= -->
+            <!-- INTRODUCTION -->
+            <!-- ================================================= -->
 
             <TextView
                 android:id="@+id/tvCollaborationIntro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:text="Join communities where IntelliPath students can share knowledge, support one another and collaborate on their university-to-work journey."
                 android:textColor="#626477"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:lineSpacingExtra="2dp" />
+
+
+            <!-- ================================================= -->
+            <!-- SECTION TITLE -->
+            <!-- ================================================= -->
 
             <TextView
                 android:id="@+id/tvGroupsTitle"
@@ -108,7 +148,9 @@
                 android:textStyle="bold" />
 
 
+            <!-- ================================================= -->
             <!-- HORIZONTAL GROUPS -->
+            <!-- ================================================= -->
 
             <HorizontalScrollView
                 android:id="@+id/mainGroupsScroll"
@@ -161,10 +203,11 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="4dp"
                                 android:text="Share interview experiences, workplace advice and practical tips for preparing for the world of work."
                                 android:textColor="#737586"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:lineSpacingExtra="2dp" />
 
                             <TextView
                                 android:id="@+id/tvWorkplaceMembers"
@@ -179,7 +222,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
-                                android:text="Open Group →"
+                                android:text="Open Chat  →"
                                 android:textColor="#6744B7"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
@@ -228,10 +271,11 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="4dp"
                                 android:text="Help each other solve coding problems, discuss development projects and learn new technical skills."
                                 android:textColor="#737586"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:lineSpacingExtra="2dp" />
 
                             <TextView
                                 android:id="@+id/tvDeveloperMembers"
@@ -246,7 +290,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
-                                android:text="Open Group →"
+                                android:text="Open Chat  →"
                                 android:textColor="#6744B7"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
@@ -293,10 +337,11 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="4dp"
                                 android:text="Share opportunities, career advice, portfolio tips, LinkedIn guidance and networking strategies."
                                 android:textColor="#737586"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:lineSpacingExtra="2dp" />
 
                             <TextView
                                 android:id="@+id/tvCareerMembers"
@@ -311,7 +356,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
-                                android:text="Open Group →"
+                                android:text="Open Chat  →"
                                 android:textColor="#6744B7"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
@@ -357,10 +402,11 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="4dp"
                                 android:text="Find students to collaborate with on university projects, assignments and software development tasks."
                                 android:textColor="#737586"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:lineSpacingExtra="2dp" />
 
                             <TextView
                                 android:id="@+id/tvProjectMembers"
@@ -375,7 +421,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
-                                android:text="Open Group →"
+                                android:text="Open Chat  →"
                                 android:textColor="#6744B7"
                                 android:textSize="10sp"
                                 android:textStyle="bold" />
@@ -389,7 +435,9 @@
             </HorizontalScrollView>
 
 
+            <!-- ================================================= -->
             <!-- COMMUNITY GROUPS -->
+            <!-- ================================================= -->
 
             <TextView
                 android:id="@+id/tvCreateGroupTitle"
@@ -498,7 +546,9 @@
                 android:orientation="vertical" />
 
 
+            <!-- ================================================= -->
             <!-- COMMUNITY GUIDELINES -->
+            <!-- ================================================= -->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardCommunityGuidelines"
@@ -525,14 +575,31 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="9dp"
                         android:layout_weight="1"
-                        android:text="Community Guidelines&#10;&#10;Be respectful, keep discussions relevant and use IntelliPath to learn, collaborate and support one another."
-                        android:textColor="#737586"
-                        android:textSize="9sp" />
+                        android:layout_marginStart="9dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Community Guidelines"
+                            android:textColor="#171A34"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Be respectful, keep discussions relevant and use IntelliPath to learn, collaborate and support one another."
+                            android:textColor="#737586"
+                            android:textSize="9sp"
+                            android:lineSpacingExtra="1dp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -543,7 +610,9 @@
     </ScrollView>
 
 
+    <!-- ========================================================= -->
     <!-- BOTTOM NAVIGATION -->
+    <!-- ========================================================= -->
 
     <LinearLayout
         android:id="@+id/bottomNavigation"
@@ -552,9 +621,13 @@
         android:background="#080B2A"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Dashboard -->
 
         <LinearLayout
             android:id="@+id/navDashboard"
@@ -562,7 +635,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -580,13 +655,18 @@
 
         </LinearLayout>
 
+
+        <!-- Assessments -->
+
         <LinearLayout
             android:id="@+id/navAssessments"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -604,13 +684,18 @@
 
         </LinearLayout>
 
+
+        <!-- Progress -->
+
         <LinearLayout
             android:id="@+id/navProgress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -628,13 +713,18 @@
 
         </LinearLayout>
 
+
+        <!-- Profile -->
+
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
