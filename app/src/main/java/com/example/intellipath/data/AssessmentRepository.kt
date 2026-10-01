@@ -14,7 +14,7 @@ data class NewStudentAssessment(
     val assessment_id: String,
     val score: Int,
     val percentage: Int,
-    val status: String = "Completed"
+    val status: String
 )
 
 @Serializable
@@ -76,7 +76,8 @@ object AssessmentRepository {
                             student_id = studentId,
                             assessment_id = assessmentId,
                             score = correctCount,
-                            percentage = percentage
+                            percentage = percentage,
+                            status = "Completed"
                         )
                     ) { select() }
                     .decodeSingle<StudentAssessmentRow>()
