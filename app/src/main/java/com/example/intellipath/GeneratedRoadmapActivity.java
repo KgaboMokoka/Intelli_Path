@@ -2,22 +2,33 @@ package com.example.intellipath;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intellipath.data.SupabaseAuthRepository;
 import com.example.intellipath.data.StudentRow;
-
-import org.jetbrains.annotations.NotNull;
+import com.example.intellipath.data.SupabaseAuthRepository;
 
 public class GeneratedRoadmapActivity extends AppCompatActivity {
+
+    private static final String TAG = "GeneratedRoadmap";
+
+    public static final String EXTRA_PERCENTAGE = "percentage";
+    private static final int UNKNOWN = -1;
+
+    // Level thresholds: below 50 = Beginner, 50-74 = Intermediate, 75+ = Advanced
+    private static final int INTERMEDIATE_MIN = 50;
+    private static final int ADVANCED_MIN = 75;
 
     private TextView tvCareerGoal;
     private Button btnStartRoadmap;
     private Button btnBackToDashboard;
+
+    private int percentage = UNKNOWN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,42 +39,64 @@ public class GeneratedRoadmapActivity extends AppCompatActivity {
         btnStartRoadmap = findViewById(R.id.btnStartRoadmap);
         btnBackToDashboard = findViewById(R.id.btnBackToDashboard);
 
-        // Show a temporary loading message while the profile is retrieved.
         tvCareerGoal.setText("Loading...");
 
-        loadStudentProfile();
+        btnBackToDashboard.setOnClickListener(v -> finish());
+        btnStartRoadmap.setOnClickListener(v -> openRoadmapForLevel());
 
-        btnBackToDashboard.setOnClickListener(v -> {
+        // Start is disabled until we know which roadmap to open.
+//        btnStartRoadmap.setEnabled(false);
+
+        percentage = getIntent().getIntExtra(EXTRA_PERCENTAGE, UNKNOWN);
+
+        percentage = getIntent().getIntExtra(EXTRA_PERCENTAGE, UNKNOWN);
+
+        if (percentage == UNKNOWN) {
+            // Opened without a score. The dashboard is the source of truth,
+            // so send the student back there instead of guessing a level.
+            Toast.makeText(
+                    this,
+                    "Open your roadmap from the dashboard once your baseline is complete.",
+                    Toast.LENGTH_LONG
+            ).show();
             finish();
-        });
+            return;
+        }
 
-        btnStartRoadmap.setOnClickListener(v -> {
-            // Boity edit: Select the roadmap based on assessment score
-            double assessmentPercentage = getIntent().getIntExtra("percentage", 0);
-
-            if (assessmentPercentage < 50) {
-
-                startActivity(new Intent(
-                        GeneratedRoadmapActivity.this,
-                        RoadmapBeginner.class
-                ));
-
-            } else if (assessmentPercentage < 75) {
-
-                startActivity(new Intent(
-                        GeneratedRoadmapActivity.this,
-                        RoadmapIntermediate.class
-                ));
-
-            } else {
-
-                startActivity(new Intent(
-                        GeneratedRoadmapActivity.this,
-                        RoadmapAdvanced.class
-                ));
-            }
-        });
+        loadStudentProfile();
     }
+
+    // ============================================================
+    // PICK THE ROADMAP
+    // ============================================================
+
+    private Class<?> roadmapClassFor(int score) {
+        if (score < INTERMEDIATE_MIN) {
+            return RoadmapBeginner.class;
+        } else if (score < ADVANCED_MIN) {
+            return RoadmapIntermediate.class;
+        } else {
+            return RoadmapAdvanced.class;
+        }
+    }
+
+    private void openRoadmapForLevel() {
+        if (percentage == UNKNOWN) {
+            Toast.makeText(
+                    this,
+                    "Your score is still loading. Please try again.",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        startActivity(new Intent(this, roadmapClassFor(percentage)));
+    }
+
+    // ============================================================
+    // LOAD CAREER GOAL
+    // ============================================================
+
     private void loadStudentProfile() {
 
         SupabaseAuthRepository.getStudentProfile(
@@ -72,9 +105,11 @@ public class GeneratedRoadmapActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(StudentRow profile) {
 
+                        if (isFinishing() || isDestroyed()) return;
+
                         String careerGoal = profile.getCareer_goal();
 
-                        if (careerGoal == null || careerGoal.isEmpty()) {
+                        if (careerGoal == null || careerGoal.trim().isEmpty()) {
                             tvCareerGoal.setText("Career goal not set");
                         } else {
                             tvCareerGoal.setText(careerGoal);
@@ -82,15 +117,12 @@ public class GeneratedRoadmapActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(@NotNull String message) {
+                    public void onError(@NonNull String message) {
 
+                        if (isFinishing() || isDestroyed()) return;
+
+                        Log.e(TAG, "Could not load profile: " + message);
                         tvCareerGoal.setText("Unable to load career goal");
-
-                        Toast.makeText(
-                                GeneratedRoadmapActivity.this,
-                                message,
-                                Toast.LENGTH_LONG
-                        ).show();
                     }
                 }
         );
