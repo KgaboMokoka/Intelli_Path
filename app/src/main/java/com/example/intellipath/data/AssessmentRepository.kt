@@ -1,12 +1,13 @@
 package com.example.intellipath.data
 
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import io.github.jan.supabase.postgrest.query.Order
 
 @Serializable
 data class NewStudentAssessment(
@@ -17,14 +18,10 @@ data class NewStudentAssessment(
     val status: String
 )
 
+// Only the ID is needed after the insert, so nothing else can break decoding
 @Serializable
-data class StudentAssessmentRow(
-    val student_assessment_id: String,
-    val student_id: String? = null,
-    val assessment_id: String? = null,
-    val score: Int? = null,
-    val percentage: Int? = null,
-    val status: String? = null
+data class StudentAssessmentIdRow(
+    val student_assessment_id: String
 )
 
 @Serializable
@@ -35,7 +32,7 @@ data class NewAssessmentResult(
     val areas_for_improvement: String? = null
 )
 
-// NEW: Used when reading the latest completed baseline result
+// Used when reading the latest completed baseline result
 @Serializable
 data class StudentAssessmentReadRow(
     val student_assessment_id: String,
@@ -52,10 +49,9 @@ object AssessmentRepository {
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    // student_assessments and assessment_results are separate inserts
-    // (no single-call nested insert here), so this saves in two steps:
-    // first the attempt row (to get student_assessment_id), then the
-    // result row that references it.
+    // student_assessments and assessment_results are separate inserts,
+    // so this saves in two steps: first the attempt row (to get
+    // student_assessment_id), then the result row that references it.
     @JvmStatic
     fun saveBaselineResult(
         assessmentId: String,
@@ -79,8 +75,8 @@ object AssessmentRepository {
                             percentage = percentage,
                             status = "Completed"
                         )
-                    ) { select() }
-                    .decodeSingle<StudentAssessmentRow>()
+                    ) { select(Columns.list("student_assessment_id")) }
+                    .decodeSingle<StudentAssessmentIdRow>()
 
                 SupabaseProvider.client.postgrest["assessment_results"].insert(
                     NewAssessmentResult(
@@ -103,7 +99,7 @@ object AssessmentRepository {
         }
     }
 
-    // NEW: Fetch the student's latest completed baseline result
+    // Fetch the student's latest completed baseline result
     @JvmStatic
     fun fetchLatestBaselineResult(
         assessmentId: String,
