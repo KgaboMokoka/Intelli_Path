@@ -310,48 +310,53 @@
             android:background="#FFFFFF">
 
             <TextView
+                android:id="@+id/navDashboard"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="⌂&#10;Dashboard"
+                android:text="⌂\nDashboard"
                 android:textColor="#77778A"
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/navStudents"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="♙&#10;Students"
+                android:text="♙\nStudents"
                 android:textColor="#77778A"
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/navAssessments"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="□&#10;Assessments"
+                android:text="□\nAssessments"
                 android:textColor="#6C5CE7"
                 android:textSize="9sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/navReports"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="▤&#10;Reports"
+                android:text="▤\nReports"
                 android:textColor="#77778A"
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/navSettings"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="⚙&#10;Settings"
+                android:text="⚙\nSettings"
                 android:textColor="#77778A"
                 android:textSize="9sp" />
 
