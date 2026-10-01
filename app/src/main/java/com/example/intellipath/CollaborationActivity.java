@@ -26,6 +26,18 @@ public class CollaborationActivity extends AppCompatActivity {
     private CardView cardCareerLaunchpad;
     private CardView cardProjectPartners;
 
+    // MAIN GROUP MEMBER COUNTS
+    private TextView tvWorkplaceMembers;
+    private TextView tvDeveloperMembers;
+    private TextView tvCareerMembers;
+    private TextView tvProjectMembers;
+
+    private static final String KEY_MAIN_MEMBER_PREFIX =
+            "main_member_count_";
+
+    private static final String KEY_MAIN_JOINED_PREFIX =
+            "main_joined_";
+
     // CREATE GROUP
 
     private CardView cardCreateGroup;
@@ -70,6 +82,7 @@ public class CollaborationActivity extends AppCompatActivity {
         initialiseViews();
         setupClickListeners();
         loadCreatedGroups();
+        loadMainGroupMemberCounts();
         updateCreateGroupStatus();
     }
 
@@ -91,6 +104,18 @@ public class CollaborationActivity extends AppCompatActivity {
 
         cardProjectPartners =
                 findViewById(R.id.cardProjectPartners);
+
+        tvWorkplaceMembers =
+                findViewById(R.id.tvWorkplaceMembers);
+
+        tvDeveloperMembers =
+                findViewById(R.id.tvDeveloperMembers);
+
+        tvCareerMembers =
+                findViewById(R.id.tvCareerMembers);
+
+        tvProjectMembers =
+                findViewById(R.id.tvProjectMembers);
 
         cardCreateGroup =
                 findViewById(R.id.cardCreateGroup);
@@ -126,6 +151,7 @@ public class CollaborationActivity extends AppCompatActivity {
 
         cardWorkplaceCrew.setOnClickListener(
                 view -> showMainGroupDialog(
+                        "workplace_crew",
                         "Workplace Crew",
                         "Share interview experiences, workplace advice and practical tips for preparing for the world of work."
                 )
@@ -133,6 +159,7 @@ public class CollaborationActivity extends AppCompatActivity {
 
         cardDeveloperSquad.setOnClickListener(
                 view -> showMainGroupDialog(
+                        "developer_squad",
                         "Developer Squad",
                         "Help each other solve coding problems, discuss development projects and learn new technical skills."
                 )
@@ -140,6 +167,7 @@ public class CollaborationActivity extends AppCompatActivity {
 
         cardCareerLaunchpad.setOnClickListener(
                 view -> showMainGroupDialog(
+                        "career_launchpad",
                         "Career Launchpad",
                         "Share opportunities, career advice, portfolio tips, LinkedIn guidance and networking strategies."
                 )
@@ -147,6 +175,7 @@ public class CollaborationActivity extends AppCompatActivity {
 
         cardProjectPartners.setOnClickListener(
                 view -> showMainGroupDialog(
+                        "project_partners",
                         "Project Partners",
                         "Find students to collaborate with on university projects, assignments and software development tasks."
                 )
@@ -202,6 +231,7 @@ public class CollaborationActivity extends AppCompatActivity {
     // ============================================================
 
     private void showMainGroupDialog(
+            String groupId,
             String groupName,
             String groupPurpose
     ) {
@@ -224,14 +254,13 @@ public class CollaborationActivity extends AppCompatActivity {
                                 rules
                 )
                 .setPositiveButton(
-                        "Open Group",
+                        "Open Chat",
                         (dialog, which) -> {
 
-                            Toast.makeText(
-                                    CollaborationActivity.this,
-                                    "Opening " + groupName + "...",
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                            joinMainGroupAndOpenChat(
+                                    groupId,
+                                    groupName
+                            );
 
                         }
                 )
@@ -240,6 +269,120 @@ public class CollaborationActivity extends AppCompatActivity {
                         null
                 )
                 .show();
+    }
+
+
+    // ============================================================
+    // MAIN GROUP MEMBER COUNTS
+    // ============================================================
+
+    private void loadMainGroupMemberCounts() {
+
+        SharedPreferences preferences =
+                getSharedPreferences(
+                        PREFS_NAME,
+                        MODE_PRIVATE
+                );
+
+        tvWorkplaceMembers.setText(
+                getMemberText(
+                        preferences.getInt(
+                                KEY_MAIN_MEMBER_PREFIX + "workplace_crew",
+                                0
+                        )
+                )
+        );
+
+        tvDeveloperMembers.setText(
+                getMemberText(
+                        preferences.getInt(
+                                KEY_MAIN_MEMBER_PREFIX + "developer_squad",
+                                0
+                        )
+                )
+        );
+
+        tvCareerMembers.setText(
+                getMemberText(
+                        preferences.getInt(
+                                KEY_MAIN_MEMBER_PREFIX + "career_launchpad",
+                                0
+                        )
+                )
+        );
+
+        tvProjectMembers.setText(
+                getMemberText(
+                        preferences.getInt(
+                                KEY_MAIN_MEMBER_PREFIX + "project_partners",
+                                0
+                        )
+                )
+        );
+    }
+
+
+    private String getMemberText(int count) {
+
+        return count + (count == 1 ? " member" : " members");
+    }
+
+
+    private void joinMainGroupAndOpenChat(
+            String groupId,
+            String groupName
+    ) {
+
+        SharedPreferences preferences =
+                getSharedPreferences(
+                        PREFS_NAME,
+                        MODE_PRIVATE
+                );
+
+        boolean alreadyJoined =
+                preferences.getBoolean(
+                        KEY_MAIN_JOINED_PREFIX + groupId,
+                        false
+                );
+
+        if (!alreadyJoined) {
+
+            int currentCount =
+                    preferences.getInt(
+                            KEY_MAIN_MEMBER_PREFIX + groupId,
+                            0
+                    );
+
+            preferences.edit()
+                    .putInt(
+                            KEY_MAIN_MEMBER_PREFIX + groupId,
+                            currentCount + 1
+                    )
+                    .putBoolean(
+                            KEY_MAIN_JOINED_PREFIX + groupId,
+                            true
+                    )
+                    .apply();
+
+            loadMainGroupMemberCounts();
+        }
+
+        Intent intent = new Intent(
+                CollaborationActivity.this,
+                TeamChatActivity.class
+        );
+
+        intent.putExtra(
+                "groupId",
+                groupId
+        );
+
+        intent.putExtra(
+                "groupName",
+                groupName
+        );
+
+        startActivity(intent);
     }
 
 
@@ -919,15 +1062,26 @@ public class CollaborationActivity extends AppCompatActivity {
                                 rules
                 )
                 .setPositiveButton(
-                        "Join Group",
-                        (dialog, which) ->
-                                Toast.makeText(
-                                        CollaborationActivity.this,
-                                        "You joined " +
-                                                groupName +
-                                                ".",
-                                        Toast.LENGTH_SHORT
-                                ).show()
+                        "Open Chat",
+                        (dialog, which) -> {
+
+                            Intent intent = new Intent(
+                                    CollaborationActivity.this,
+                                    TeamChatActivity.class
+                            );
+
+                            intent.putExtra(
+                                    "groupId",
+                                    "created_group_" + groupName
+                            );
+
+                            intent.putExtra(
+                                    "groupName",
+                                    groupName
+                            );
+
+                            startActivity(intent);
+                        }
                 )
                 .setNegativeButton(
                         "Close",
