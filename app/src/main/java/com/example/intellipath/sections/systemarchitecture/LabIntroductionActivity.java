@@ -1,4 +1,4 @@
-package com.example.intellipath;
+package com.example.intellipath.sections.systemarchitecture;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.intellipath.R;
 
 public class LabIntroductionActivity extends AppCompatActivity {
 

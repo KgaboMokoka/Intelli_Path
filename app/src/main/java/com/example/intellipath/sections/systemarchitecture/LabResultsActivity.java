@@ -1,4 +1,4 @@
-package com.example.intellipath;
+package com.example.intellipath.sections.systemarchitecture;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.intellipath.MainActivity;
+import com.example.intellipath.R;
 
 public class LabResultsActivity extends AppCompatActivity {
 
