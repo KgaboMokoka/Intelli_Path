@@ -9,8 +9,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.intellipath.data.AssessmentRepository;
+import com.example.intellipath.data.StudentAssessmentReadRow;
 import com.example.intellipath.data.StudentRow;
 import com.example.intellipath.data.SupabaseAuthRepository;
+import com.example.intellipath.sections.systemarchitecture.LabSimulationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     // ============================================================
     // LOCAL DASHBOARD STATE
+    // (Supabase is the source of truth; these prefs only mirror it
+    // so the click listeners can check completion quickly.)
     // ============================================================
 
     private SharedPreferences dashboardPreferences;
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_READINESS_SCORE =
             "readiness_score";
+
+    // ID of the baseline row in the assessments table
+    private static final String BASELINE_ASSESSMENT_ID =
+            "c146a692-332e-4593-b1b1-3f4e198a6794";
 
 
     // ============================================================
@@ -71,14 +80,11 @@ public class MainActivity extends AppCompatActivity {
         // Find Dashboard views
         initialiseViews();
 
-        // Load current student's information
-        loadStudentProfile();
-
-        // Load current Dashboard state
-        loadDashboardState();
-
         // Set Dashboard interactions
         setupClickListeners();
+
+        // Profile and dashboard state are loaded in onResume(),
+        // which always runs right after onCreate().
     }
 
 
@@ -169,62 +175,89 @@ public class MainActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // LOAD DASHBOARD STATE
+    // LOAD DASHBOARD STATE (FROM SUPABASE)
     // ============================================================
 
     private void loadDashboardState() {
 
-        if (dashboardPreferences == null) {
-            return;
-        }
+        // Neutral state until the database answers
+        tvReadinessScore.setText("Loading...");
+        tvReadinessStatus.setText("Checking your baseline results...");
+
+        lockDashboardCards();
+        lockCard(cardBaseline);
+
+        AssessmentRepository.fetchLatestBaselineResult(
+                BASELINE_ASSESSMENT_ID,
+                new AssessmentRepository.Callback<StudentAssessmentReadRow>() {
+
+                    @Override
+                    public void onSuccess(StudentAssessmentReadRow result) {
+
+                        SharedPreferences.Editor editor =
+                                dashboardPreferences.edit();
+
+                        // No completed baseline for this student
+                        if (result == null) {
+
+                            editor.putBoolean(KEY_BASELINE_COMPLETED, false);
+                            editor.remove(KEY_READINESS_SCORE);
+                            editor.apply();
+
+                            showBaselineNotCompleted();
+                            return;
+                        }
+
+                        String score = "";
+
+                        if (result.getPercentage() != null) {
+                            score = String.valueOf(
+                                    Math.round(result.getPercentage())
+                            );
+                        }
+
+                        editor.putBoolean(KEY_BASELINE_COMPLETED, true);
+                        editor.putString(KEY_READINESS_SCORE, score);
+                        editor.apply();
+
+                        showBaselineCompleted(score);
+                    }
 
 
-        boolean baselineCompleted =
-                dashboardPreferences.getBoolean(
-                        KEY_BASELINE_COMPLETED,
-                        false
-                );
+                    @Override
+                    public void onError(String message) {
+
+                        tvReadinessScore.setText("Unavailable");
+
+                        tvReadinessStatus.setText(
+                                "Could not load your results: " + message
+                        );
+
+                        lockDashboardCards();
+                    }
+                }
+        );
+    }
 
 
-        String savedReadinessScore =
-                dashboardPreferences.getString(
-                        KEY_READINESS_SCORE,
-                        ""
-                );
+    private void showBaselineNotCompleted() {
+
+        tvReadinessScore.setText(
+                "Not Calculated Yet"
+        );
+
+        tvReadinessStatus.setText(
+                "Complete your Baseline Assessment to unlock "
+                        + "your personalised roadmap and progress tracking."
+        );
+
+        lockDashboardCards();
+    }
 
 
-        // ========================================================
-        // BASELINE NOT COMPLETED
-        // ========================================================
+    private void showBaselineCompleted(String score) {
 
-        if (!baselineCompleted) {
-
-            tvReadinessScore.setText(
-                    "Not Calculated Yet"
-            );
-
-            tvReadinessStatus.setText(
-                    "Complete your Baseline Assessment to unlock "
-                            + "your personalised roadmap and progress tracking."
-            );
-
-            lockDashboardCards();
-
-            return;
-        }
-
-
-        // ========================================================
-        // BASELINE COMPLETED
-        // ========================================================
-
-        /*
-         * Once the baseline is completed, the readiness score
-         * should remain visible on the Dashboard.
-         */
-
-        if (savedReadinessScore == null ||
-                savedReadinessScore.trim().isEmpty()) {
+        if (score == null || score.trim().isEmpty()) {
 
             tvReadinessScore.setText(
                     "Calculated"
@@ -233,17 +266,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             tvReadinessScore.setText(
-                    savedReadinessScore + "%"
+                    score + "%"
             );
         }
-
 
         tvReadinessStatus.setText(
                 "Your personalised readiness profile is ready."
         );
 
-
-        // Unlock all Dashboard cards
         unlockDashboardCards();
     }
 
@@ -325,14 +355,7 @@ public class MainActivity extends AppCompatActivity {
 
         cardBaseline.setOnClickListener(view -> {
 
-            boolean baselineCompleted =
-                    dashboardPreferences.getBoolean(
-                            KEY_BASELINE_COMPLETED,
-                            false
-                    );
-
-
-            if (!baselineCompleted) {
+            if (!isBaselineCompleted()) {
 
                 Intent intent =
                         new Intent(
@@ -373,11 +396,7 @@ public class MainActivity extends AppCompatActivity {
                                 RoadmapBeginner.class
                         );
 
-                Toast.makeText(
-                        MainActivity.this,
-                        "Roadmap selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                startActivity(intent);
             }
         });
 
@@ -430,11 +449,7 @@ public class MainActivity extends AppCompatActivity {
                                 LabSimulationActivity.class
                         );
 
-                Toast.makeText(
-                        MainActivity.this,
-                        "Simulation selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                startActivity(intent);
             }
         });
 
@@ -534,20 +549,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         /*
-         * This is important.
-         *
-         * When the user opens a Dashboard card and later comes
-         * back to MainActivity, the Dashboard state is loaded
-         * again.
-         *
-         * This means the Industry Readiness Score remains visible
-         * and the unlocked cards remain unlocked.
+         * Runs after onCreate() and every time the user comes back
+         * to the Dashboard (for example after finishing the baseline),
+         * so the score is always re-read from Supabase.
          */
 
-        if (dashboardPreferences != null) {
-
-            loadDashboardState();
-            loadStudentProfile();
-        }
+        loadStudentProfile();
+        loadDashboardState();
     }
 }
