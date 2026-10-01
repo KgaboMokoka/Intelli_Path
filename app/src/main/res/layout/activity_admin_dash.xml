@@ -466,6 +466,7 @@
             android:background="#FFFFFF">
 
             <TextView
+                android:id="@+id/navDashboard"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -475,6 +476,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/navStudents"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -484,6 +486,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/navAssessments"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -493,6 +496,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/navReports"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -502,6 +506,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/navSettings"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -509,7 +514,6 @@
                 android:text="⚙\nSettings"
                 android:textColor="#77778A"
                 android:textSize="10sp" />
-
         </LinearLayout>
 
     </LinearLayout>

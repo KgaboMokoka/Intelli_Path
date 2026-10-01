@@ -1,4 +1,4 @@
-package com.example.intellipath;
+package com.example.intellipath.sections.systemarchitecture;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.intellipath.R;
 import com.example.intellipath.data.LabSimulationRepository;
 import com.example.intellipath.data.LabStep;
 import com.example.intellipath.data.LabStepOption;

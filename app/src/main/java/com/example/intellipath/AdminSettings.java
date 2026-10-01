@@ -1,24 +1,52 @@
 package com.example.intellipath;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class AdminSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_settings);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // Dashboard
+        findViewById(R.id.navDashboard).setOnClickListener(v -> {
+            startActivity(new Intent(
+                    AdminSettings.this,
+                    AdminDash.class
+            ));
+        });
+
+        // Students
+        findViewById(R.id.navStudents).setOnClickListener(v -> {
+            startActivity(new Intent(
+                    AdminSettings.this,
+                    StudentManagement.class
+            ));
+        });
+
+        // Assessments
+        findViewById(R.id.navAssessments).setOnClickListener(v -> {
+            startActivity(new Intent(
+                    AdminSettings.this,
+                    AssesmentManagement.class
+            ));
+        });
+
+        // Reports
+        findViewById(R.id.navReports).setOnClickListener(v -> {
+            startActivity(new Intent(
+                    AdminSettings.this,
+                    FeedbackReports.class
+            ));
+        });
+
+        // Settings
+        findViewById(R.id.navSettings).setOnClickListener(v -> {
+            // Already on Settings
         });
     }
 }
