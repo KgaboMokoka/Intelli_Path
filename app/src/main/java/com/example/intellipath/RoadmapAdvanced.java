@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.intellipath.sections.systemarchitecture.LabIntroductionActivity;
+
 public class RoadmapAdvanced extends AppCompatActivity {
 
     @Override

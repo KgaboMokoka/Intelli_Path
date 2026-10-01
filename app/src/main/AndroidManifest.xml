@@ -107,15 +107,15 @@
 
         <!-- Lab Simulation -->
         <activity
-            android:name=".LabIntroductionActivity"
+            android:name=".sections.systemarchitecture.LabIntroductionActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LabSimulationActivity"
+            android:name=".sections.systemarchitecture.LabSimulationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".LabResultsActivity"
+            android:name=".sections.systemarchitecture.LabResultsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
