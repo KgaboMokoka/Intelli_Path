@@ -13,6 +13,7 @@ import com.example.intellipath.data.StudentRow;
 import com.example.intellipath.data.SupabaseAuthRepository;
 import com.example.intellipath.data.AssessmentRepository;
 import com.example.intellipath.data.StudentAssessmentReadRow;
+import com.example.intellipath.sections.systemarchitecture.LabSimulationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
