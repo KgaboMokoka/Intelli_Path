@@ -1,16 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8FC">
 
-    <!-- ========================================================= -->
-    <!-- TOP HEADER -->
-    <!-- ========================================================= -->
+    <!-- HEADER -->
 
     <LinearLayout
         android:id="@+id/topHeader"
@@ -21,11 +16,9 @@
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- Menu / Back -->
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/menuButton"
@@ -34,12 +27,7 @@
             android:gravity="center"
             android:text="☰"
             android:textColor="#FFFFFF"
-            android:textSize="21sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Menu" />
-
-        <!-- App Name -->
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/appName"
@@ -52,8 +40,6 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
-        <!-- Profile -->
-
         <TextView
             android:id="@+id/profileButton"
             android:layout_width="38dp"
@@ -61,42 +47,28 @@
             android:background="#E9E7F8"
             android:gravity="center"
             android:text="👤"
-            android:textSize="17sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Profile" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
 
-    <!-- ========================================================= -->
-    <!-- SCROLLABLE CONTENT -->
-    <!-- ========================================================= -->
+    <!-- MAIN SCROLL -->
 
     <ScrollView
         android:id="@+id/collaborationScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:clipToPadding="false"
-        android:paddingBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/topHeader"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topHeader">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="20dp">
-
-            <!-- ================================================= -->
-            <!-- TITLE -->
-            <!-- ================================================= -->
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tvCollaborationTitle"
@@ -114,28 +86,16 @@
                 android:layout_marginTop="5dp"
                 android:text="Connect, learn and grow together."
                 android:textColor="#626477"
-                android:textSize="12sp"
-                android:lineSpacingExtra="2dp" />
-
-
-            <!-- ================================================= -->
-            <!-- INTRODUCTION -->
-            <!-- ================================================= -->
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvCollaborationIntro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:text="Join communities where IntelliPath students can share knowledge, support one another and collaborate on their university-to-work journey."
                 android:textColor="#626477"
-                android:textSize="11sp"
-                android:lineSpacingExtra="2dp" />
-
-
-            <!-- ================================================= -->
-            <!-- SECTION TITLE -->
-            <!-- ================================================= -->
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tvGroupsTitle"
@@ -148,12 +108,313 @@
                 android:textStyle="bold" />
 
 
-            <!-- ================================================= -->
-            <!-- WORKPLACE CREW -->
-            <!-- ================================================= -->
+            <!-- HORIZONTAL GROUPS -->
+
+            <HorizontalScrollView
+                android:id="@+id/mainGroupsScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/mainGroupsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <!-- WORKPLACE CREW -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardWorkplaceCrew"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="#EEEAFB"
+                                android:gravity="center"
+                                android:text="💼"
+                                android:textSize="19sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:text="Workplace Crew"
+                                android:textColor="#171A34"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Share interview experiences, workplace advice and practical tips for preparing for the world of work."
+                                android:textColor="#737586"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tvWorkplaceMembers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="24 members"
+                                android:textColor="#777A88"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:text="Open Group →"
+                                android:textColor="#6744B7"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!-- DEVELOPER SQUAD -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardDeveloperSquad"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="#EEEAFB"
+                                android:gravity="center"
+                                android:text="&lt;/&gt;"
+                                android:textColor="#6744B7"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:text="Developer Squad"
+                                android:textColor="#171A34"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Help each other solve coding problems, discuss development projects and learn new technical skills."
+                                android:textColor="#737586"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tvDeveloperMembers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="31 members"
+                                android:textColor="#777A88"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:text="Open Group →"
+                                android:textColor="#6744B7"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!-- CAREER LAUNCHPAD -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCareerLaunchpad"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="#EEEAFB"
+                                android:gravity="center"
+                                android:text="🚀"
+                                android:textSize="19sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:text="Career Launchpad"
+                                android:textColor="#171A34"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Share opportunities, career advice, portfolio tips, LinkedIn guidance and networking strategies."
+                                android:textColor="#737586"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tvCareerMembers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="28 members"
+                                android:textColor="#777A88"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:text="Open Group →"
+                                android:textColor="#6744B7"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!-- PROJECT PARTNERS -->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardProjectPartners"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+
+                            <TextView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="#EEEAFB"
+                                android:gravity="center"
+                                android:text="🤝"
+                                android:textSize="19sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:text="Project Partners"
+                                android:textColor="#171A34"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="Find students to collaborate with on university projects, assignments and software development tasks."
+                                android:textColor="#737586"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tvProjectMembers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="19 members"
+                                android:textColor="#777A88"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:text="Open Group →"
+                                android:textColor="#6744B7"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <!-- COMMUNITY GROUPS -->
+
+            <TextView
+                android:id="@+id/tvCreateGroupTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Community Groups"
+                android:textColor="#151831"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCreateGroupSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Create up to 2 groups of your own."
+                android:textColor="#737586"
+                android:textSize="10sp" />
+
+
+            <!-- CREATE GROUP BUTTON -->
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardWorkplaceCrew"
+                android:id="@+id/cardCreateGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -164,49 +425,50 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="14dp">
 
                     <TextView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:background="#EEEAFB"
                         android:gravity="center"
-                        android:text="💼"
-                        android:textSize="19sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:text="Workplace Crew"
-                        android:textColor="#171A34"
-                        android:textSize="14sp"
+                        android:text="+"
+                        android:textColor="#6744B7"
+                        android:textSize="26sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Share interview experiences, workplace advice and practical tips for preparing for the world of work."
-                        android:textColor="#737586"
-                        android:textSize="10sp"
-                        android:lineSpacingExtra="2dp" />
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Create a Group"
+                            android:textColor="#171A34"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCreateGroupStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="You can create 2 more groups."
+                            android:textColor="#737586"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvWorkplaceMembers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="24 members"
-                        android:textColor="#777A88"
-                        android:textSize="9sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="Open Chat  →"
+                        android:text="Create →"
                         android:textColor="#6744B7"
                         android:textSize="10sp"
                         android:textStyle="bold" />
@@ -216,215 +478,27 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- DEVELOPER SQUAD -->
-            <!-- ================================================= -->
+            <!-- YOUR GROUPS -->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardDeveloperSquad"
+            <TextView
+                android:id="@+id/tvYourGroupsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp">
+                android:layout_marginTop="18dp"
+                android:text="Groups Created By You"
+                android:textColor="#151831"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:background="#EEEAFB"
-                        android:gravity="center"
-                        android:text="</>"
-                        android:textColor="#6744B7"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:text="Developer Squad"
-                        android:textColor="#171A34"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Help each other solve coding problems, discuss development projects and learn new technical skills."
-                        android:textColor="#737586"
-                        android:textSize="10sp"
-                        android:lineSpacingExtra="2dp" />
-
-                    <TextView
-                        android:id="@+id/tvDeveloperMembers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="31 members"
-                        android:textColor="#777A88"
-                        android:textSize="9sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="Open Chat  →"
-                        android:textColor="#6744B7"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- ================================================= -->
-            <!-- CAREER LAUNCHPAD -->
-            <!-- ================================================= -->
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardCareerLaunchpad"
+            <LinearLayout
+                android:id="@+id/createdGroupsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:background="#EEEAFB"
-                        android:gravity="center"
-                        android:text="🚀"
-                        android:textSize="19sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:text="Career Launchpad"
-                        android:textColor="#171A34"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Share opportunities, career advice, portfolio tips, LinkedIn guidance and networking strategies."
-                        android:textColor="#737586"
-                        android:textSize="10sp"
-                        android:lineSpacingExtra="2dp" />
-
-                    <TextView
-                        android:id="@+id/tvCareerMembers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="28 members"
-                        android:textColor="#777A88"
-                        android:textSize="9sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="Open Chat  →"
-                        android:textColor="#6744B7"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+                android:orientation="vertical" />
 
 
-            <!-- ================================================= -->
-            <!-- PROJECT PARTNERS -->
-            <!-- ================================================= -->
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardProjectPartners"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:background="#EEEAFB"
-                        android:gravity="center"
-                        android:text="🤝"
-                        android:textSize="19sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:text="Project Partners"
-                        android:textColor="#171A34"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Find students to collaborate with on university projects, assignments and software development tasks."
-                        android:textColor="#737586"
-                        android:textSize="10sp"
-                        android:lineSpacingExtra="2dp" />
-
-                    <TextView
-                        android:id="@+id/tvProjectMembers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="19 members"
-                        android:textColor="#777A88"
-                        android:textSize="9sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="Open Chat  →"
-                        android:textColor="#6744B7"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- ================================================= -->
             <!-- COMMUNITY GUIDELINES -->
-            <!-- ================================================= -->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardCommunityGuidelines"
@@ -451,31 +525,14 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="9dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Community Guidelines"
-                            android:textColor="#171A34"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="Be respectful, keep discussions relevant and use IntelliPath to learn, collaborate and support one another."
-                            android:textColor="#737586"
-                            android:textSize="9sp"
-                            android:lineSpacingExtra="1dp" />
-
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        android:text="Community Guidelines&#10;&#10;Be respectful, keep discussions relevant and use IntelliPath to learn, collaborate and support one another."
+                        android:textColor="#737586"
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
@@ -486,9 +543,7 @@
     </ScrollView>
 
 
-    <!-- ========================================================= -->
     <!-- BOTTOM NAVIGATION -->
-    <!-- ========================================================= -->
 
     <LinearLayout
         android:id="@+id/bottomNavigation"
@@ -497,13 +552,9 @@
         android:background="#080B2A"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Dashboard -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/navDashboard"
@@ -511,9 +562,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -531,18 +580,13 @@
 
         </LinearLayout>
 
-
-        <!-- Assessments -->
-
         <LinearLayout
             android:id="@+id/navAssessments"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -560,18 +604,13 @@
 
         </LinearLayout>
 
-
-        <!-- Progress -->
-
         <LinearLayout
             android:id="@+id/navProgress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -589,18 +628,13 @@
 
         </LinearLayout>
 
-
-        <!-- Profile -->
-
         <LinearLayout
             android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
