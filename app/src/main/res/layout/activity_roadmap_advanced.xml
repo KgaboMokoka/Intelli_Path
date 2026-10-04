@@ -155,6 +155,7 @@
 
                 <TextView
                     android:layout_width="34dp"
+                    android:text="🏗️"
                     android:layout_height="34dp"
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
@@ -238,7 +239,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="APS"
+                    android:text="🧠"
                     android:textSize="16sp" />
 
                 <TextView
@@ -318,7 +319,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="DDS"
+                    android:text="🗄️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -398,7 +399,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="SRP"
+                    android:text="🛡️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -478,7 +479,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="CDA"
+                    android:text="☁️"
                     android:textSize="16sp" />
 
                 <TextView
@@ -558,7 +559,7 @@
                     android:background="@drawable/step_circle"
                     android:backgroundTint="#E4E0FA"
                     android:gravity="center"
-                    android:text="BSDC"
+                    android:text="💻"
                     android:textSize="16sp" />
 
                 <TextView
@@ -608,7 +609,7 @@
                 android:background="@drawable/step_circle"
                 android:backgroundTint="#E4E0FA"
                 android:gravity="center"
-                android:text=""
+                android:text="🏁"
                 android:textSize="16sp" />
 
             <TextView
@@ -645,9 +646,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="🏆"
                 android:textSize="32sp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -671,7 +671,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Build. Apply. Grow."
+                android:text="🚀Build. Apply. Grow."
                 android:textColor="#FFFFFF"
                 android:textSize="13sp"
                 android:textStyle="bold"
