@@ -55,7 +55,8 @@ public class RegistrationTwo extends AppCompatActivity {
                 "Eduvos Tygervalley",
                 "Eduvos Bloemfontein",
                 "Eduvos East London",
-                "Eduvos Nelson Mandela Bay"
+                "Eduvos Nelson Mandela Bay",
+                "Other"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -100,7 +101,8 @@ public class RegistrationTwo extends AppCompatActivity {
                 "Third Year",
                 "Honours",
                 "Masters (MSc)",
-                "Doctorate (PhD)"
+                "Doctorate (PhD)",
+                "Other"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

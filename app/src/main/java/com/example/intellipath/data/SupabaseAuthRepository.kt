@@ -12,13 +12,14 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 
 @Serializable
 data class NewStudent(
     val student_id: String,
     val first_name: String,
     val last_name: String,
-    val student_number: String,
+    val student_number: String? = null,
     val email: String
 )
 
@@ -107,7 +108,7 @@ object SupabaseAuthRepository {
     fun signUp(
         firstName: String,
         lastName: String,
-        studentNumber: String,
+        studentNumber: String?,
         email: String,
         password: String,
         callback: AuthCallback
@@ -120,7 +121,7 @@ object SupabaseAuthRepository {
                     data = buildJsonObject {
                         put("first_name", firstName)
                         put("last_name", lastName)
-                        put("student_number", studentNumber)
+                        put("student_number", studentNumber?.takeIf { it.isNotBlank() })
                     }
                 }
                 withContext(Dispatchers.Main) { callback.onSuccess() }
@@ -175,7 +176,8 @@ object SupabaseAuthRepository {
                     val metadata = user.userMetadata
                     val firstName = metadata?.get("first_name")?.jsonPrimitive?.content ?: ""
                     val lastName = metadata?.get("last_name")?.jsonPrimitive?.content ?: ""
-                    val studentNumber = metadata?.get("student_number")?.jsonPrimitive?.content ?: ""
+                    val studentNumber = metadata?.get("student_number")?.jsonPrimitive?.contentOrNull
+                        ?.takeIf { it.isNotBlank() }
 
                     SupabaseProvider.client.postgrest["students"].insert(
                         NewStudent(
