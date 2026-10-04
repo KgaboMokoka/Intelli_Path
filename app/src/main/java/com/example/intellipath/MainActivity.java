@@ -1,7 +1,7 @@
 package com.example.intellipath;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +19,19 @@ import com.example.intellipath.sections.systemarchitecture.LabSimulationActivity
 
 public class MainActivity extends AppCompatActivity {
 
+    // ID of the baseline row in the assessments table
+    private static final String BASELINE_ASSESSMENT_ID =
+            "c146a692-332e-4593-b1b1-3f4e198a6794";
+
+    // ============================================================
+    // DASHBOARD STATE (Supabase is the source of truth)
+    // ============================================================
+
+    private static final int PERCENTAGE_UNKNOWN = -1;
+
+    private boolean baselineCompletedCache = false;
+    private int baselinePercentageCache = PERCENTAGE_UNKNOWN;
+
     // ============================================================
     // DASHBOARD CARDS
     // ============================================================
@@ -29,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private CardView cardSimulation;
     private CardView cardCollaboration;
     private CardView cardAchievements;
-
 
     // ============================================================
     // DASHBOARD TEXT
@@ -47,32 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnLogout;
 
-
-    // ============================================================
-    // DASHBOARD PREFERENCES
-    // ============================================================
-
-    private SharedPreferences dashboardPreferences;
-
-    private static final String PREFS_NAME =
-            "IntelliPathDashboard";
-
-    private static final String KEY_BASELINE_COMPLETED =
-            "baseline_completed";
-
-    private static final String KEY_READINESS_SCORE =
-            "readiness_score";
-
-
-    // ============================================================
-    // BASELINE ASSESSMENT ID
-    // ============================================================
-
-    // ID of the Baseline Assessment row in the assessments table
-    private static final String BASELINE_ASSESSMENT_ID =
-            "c146a692-332e-4593-b1b1-3f4e198a6794";
-
-
     // ============================================================
     // ON CREATE
     // ============================================================
@@ -83,12 +69,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-        dashboardPreferences =
-                getSharedPreferences(
-                        PREFS_NAME,
-                        MODE_PRIVATE
-                );
 
         // Find Dashboard views
         initialiseViews();
@@ -101,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
          * which always runs right after onCreate().
          */
     }
-
 
     // ============================================================
     // INITIALISE VIEWS
@@ -140,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         btnLogout =
                 findViewById(R.id.btnLogout);
 
-
         // --------------------------------------------------------
         // Dashboard cards
         // --------------------------------------------------------
@@ -164,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.cardAchievements);
     }
 
-
     // ============================================================
     // LOAD STUDENT PROFILE
     // ============================================================
@@ -176,6 +153,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(StudentRow student) {
+
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
                         String firstName =
                                 student.getFirst_name();
@@ -197,14 +178,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-
                     @Override
                     public void onError(String message) {
 
-                        /*
-                         * Do not prevent Dashboard from opening
-                         * if the profile cannot be retrieved.
-                         */
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+
+                        // Do not prevent Dashboard from opening
+                        // if the profile cannot be retrieved.
 
                         tvUserName.setText(
                                 "Hello, Student!"
@@ -214,66 +196,26 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-
     // ============================================================
     // LOAD DASHBOARD STATE FROM SUPABASE
     // ============================================================
 
     private void loadDashboardState() {
 
-        /*
-         * Keep Baseline and Collaboration available at all times.
-         * The other four cards remain locked until the database
-         * confirms that the Baseline Assessment is completed.
-         */
-
-        unlockCard(cardBaseline);
-        unlockCard(cardCollaboration);
-
-        updateCardStatus(
-                tvCollaborationStatus,
-                true
-        );
+        // Reset until the database answers
+        baselineCompletedCache = false;
+        baselinePercentageCache = PERCENTAGE_UNKNOWN;
 
         // Neutral state while the database is being checked
         tvReadinessScore.setText("Loading...");
+        tvReadinessStatus.setVisibility(View.GONE);
 
-        tvReadinessStatus.setVisibility(
-                View.GONE
-        );
+        // Dependent cards locked; Collaboration stays open.
+        lockDashboardCards();
 
-
-        // Temporarily show locked state for the cards
-        // that depend on the baseline assessment.
-        lockCard(cardRoadmap);
-        lockCard(cardAssessments);
-        lockCard(cardSimulation);
-        lockCard(cardAchievements);
-
-        updateCardStatus(
-                tvRoadmapStatus,
-                false
-        );
-
-        updateCardStatus(
-                tvAssessmentsStatus,
-                false
-        );
-
-        updateCardStatus(
-                tvSimulationStatus,
-                false
-        );
-
-        updateCardStatus(
-                tvAchievementsStatus,
-                false
-        );
-
-
-        // --------------------------------------------------------
-        // Fetch latest baseline result from Supabase
-        // --------------------------------------------------------
+        // Baseline stays locked until we know the student's status,
+        // so they can't start the test before we know if they did.
+        lockCard(cardBaseline);
 
         AssessmentRepository.fetchLatestBaselineResult(
                 BASELINE_ASSESSMENT_ID,
@@ -284,9 +226,9 @@ public class MainActivity extends AppCompatActivity {
                             StudentAssessmentReadRow result
                     ) {
 
-                        SharedPreferences.Editor editor =
-                                dashboardPreferences.edit();
-
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
                         // ====================================================
                         // BASELINE NOT COMPLETED
@@ -294,84 +236,73 @@ public class MainActivity extends AppCompatActivity {
 
                         if (result == null) {
 
-                            editor.putBoolean(
-                                    KEY_BASELINE_COMPLETED,
-                                    false
-                            );
-
-                            editor.remove(
-                                    KEY_READINESS_SCORE
-                            );
-
-                            editor.apply();
+                            baselineCompletedCache = false;
+                            baselinePercentageCache = PERCENTAGE_UNKNOWN;
 
                             showBaselineNotCompleted();
-
                             return;
                         }
-
 
                         // ====================================================
                         // BASELINE COMPLETED
                         // ====================================================
 
-                        String score = "";
+                        baselineCompletedCache = true;
 
-                        if (result.getPercentage() != null) {
+                        Double percentage =
+                                result.getPercentage();
 
-                            score =
-                                    String.valueOf(
-                                            Math.round(
-                                                    result.getPercentage()
-                                            )
-                                    );
+                        if (percentage != null) {
+
+                            baselinePercentageCache =
+                                    (int) Math.round(percentage);
+
+                            tvReadinessScore.setText(
+                                    baselinePercentageCache + "%"
+                            );
+
+                        } else {
+
+                            baselinePercentageCache = PERCENTAGE_UNKNOWN;
+
+                            tvReadinessScore.setText(
+                                    "Calculated"
+                            );
                         }
 
+                        // Hide the baseline instruction once completed
+                        tvReadinessStatus.setVisibility(View.GONE);
 
-                        editor.putBoolean(
-                                KEY_BASELINE_COMPLETED,
-                                true
-                        );
-
-                        editor.putString(
-                                KEY_READINESS_SCORE,
-                                score
-                        );
-
-                        editor.apply();
-
-
-                        showBaselineCompleted(
-                                score
-                        );
+                        unlockDashboardCards();
                     }
-
 
                     @Override
                     public void onError(String message) {
 
-                        /*
-                         * If the database cannot be reached,
-                         * keep the dependent cards locked.
-                         *
-                         * Baseline and Collaboration remain
-                         * available.
-                         */
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
-                        tvReadinessScore.setText(
-                                "Unavailable"
-                        );
+                        // We don't know the student's status, so keep
+                        // the dependent cards locked and don't let them
+                        // start the baseline again by accident.
 
-                        tvReadinessStatus.setVisibility(
-                                View.GONE
+                        baselineCompletedCache = false;
+                        baselinePercentageCache = PERCENTAGE_UNKNOWN;
+
+                        tvReadinessScore.setText("Unavailable");
+
+                        tvReadinessStatus.setVisibility(View.VISIBLE);
+                        tvReadinessStatus.setText(
+                                "Could not load your results: " + message
                         );
 
                         lockDashboardCards();
+                        lockCard(cardBaseline);
                     }
                 }
         );
     }
-
 
     // ============================================================
     // BASELINE NOT COMPLETED
@@ -383,72 +314,16 @@ public class MainActivity extends AppCompatActivity {
                 "Not Calculated Yet"
         );
 
-
-        /*
-         * Show this message ONLY when the user has not
-         * completed the Baseline Assessment.
-         */
-
-        tvReadinessStatus.setVisibility(
-                View.VISIBLE
-        );
-
+        // Show this message ONLY when the baseline isn't completed
+        tvReadinessStatus.setVisibility(View.VISIBLE);
         tvReadinessStatus.setText(
                 "Complete your Baseline Assessment to unlock "
                         + "your personalised roadmap and progress tracking."
         );
 
-
-        /*
-         * Baseline and Collaboration remain unlocked.
-         * Roadmap, Assessments, Simulation and Achievements
-         * remain locked.
-         */
-
+        // Baseline and Collaboration open; the rest locked
         lockDashboardCards();
     }
-
-
-    // ============================================================
-    // BASELINE COMPLETED
-    // ============================================================
-
-    private void showBaselineCompleted(
-            String score
-    ) {
-
-        if (score == null ||
-                score.trim().isEmpty()) {
-
-            tvReadinessScore.setText(
-                    "Calculated"
-            );
-
-        } else {
-
-            tvReadinessScore.setText(
-                    score + "%"
-            );
-        }
-
-
-        /*
-         * Hide the baseline instruction completely once
-         * the user has completed the assessment.
-         */
-
-        tvReadinessStatus.setVisibility(
-                View.GONE
-        );
-
-
-        /*
-         * Unlock all dashboard cards.
-         */
-
-        unlockDashboardCards();
-    }
-
 
     // ============================================================
     // LOCK DASHBOARD CARDS
@@ -456,96 +331,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void lockDashboardCards() {
 
-        /*
-         * BASELINE:
-         * Always unlocked.
-         */
+        // BASELINE: available (callers lock it explicitly while loading)
+        unlockCard(cardBaseline);
 
-        unlockCard(
-                cardBaseline
-        );
+        // COLLABORATION: always available
+        unlockCard(cardCollaboration);
+        updateCardStatus(tvCollaborationStatus, true);
 
+        // Everything else is locked until the baseline is completed
+        lockCard(cardRoadmap);
+        updateCardStatus(tvRoadmapStatus, false);
 
-        /*
-         * COLLABORATION:
-         * Always unlocked.
-         */
+        lockCard(cardAssessments);
+        updateCardStatus(tvAssessmentsStatus, false);
 
-        unlockCard(
-                cardCollaboration
-        );
+        lockCard(cardSimulation);
+        updateCardStatus(tvSimulationStatus, false);
 
-
-        /*
-         * Collaboration should always display Open.
-         */
-
-        updateCardStatus(
-                tvCollaborationStatus,
-                true
-        );
-
-
-        /*
-         * ROADMAP:
-         * Locked until baseline is completed.
-         */
-
-        lockCard(
-                cardRoadmap
-        );
-
-        updateCardStatus(
-                tvRoadmapStatus,
-                false
-        );
-
-
-        /*
-         * ASSESSMENTS:
-         * Locked until baseline is completed.
-         */
-
-        lockCard(
-                cardAssessments
-        );
-
-        updateCardStatus(
-                tvAssessmentsStatus,
-                false
-        );
-
-
-        /*
-         * SIMULATION:
-         * Locked until baseline is completed.
-         */
-
-        lockCard(
-                cardSimulation
-        );
-
-        updateCardStatus(
-                tvSimulationStatus,
-                false
-        );
-
-
-        /*
-         * ACHIEVEMENTS:
-         * Locked until baseline is completed.
-         */
-
-        lockCard(
-                cardAchievements
-        );
-
-        updateCardStatus(
-                tvAchievementsStatus,
-                false
-        );
+        lockCard(cardAchievements);
+        updateCardStatus(tvAchievementsStatus, false);
     }
-
 
     // ============================================================
     // UNLOCK DASHBOARD CARDS
@@ -553,67 +358,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void unlockDashboardCards() {
 
-        /*
-         * All six cards are available once the
-         * Baseline Assessment is completed.
-         */
+        // All six cards are available once the baseline is completed
+        unlockCard(cardBaseline);
+        unlockCard(cardRoadmap);
+        unlockCard(cardAssessments);
+        unlockCard(cardSimulation);
+        unlockCard(cardCollaboration);
+        unlockCard(cardAchievements);
 
-        unlockCard(
-                cardBaseline
-        );
-
-        unlockCard(
-                cardRoadmap
-        );
-
-        unlockCard(
-                cardAssessments
-        );
-
-        unlockCard(
-                cardSimulation
-        );
-
-        unlockCard(
-                cardCollaboration
-        );
-
-        unlockCard(
-                cardAchievements
-        );
-
-
-        /*
-         * Change the status of the cards from
-         * "Locked" to "Open →".
-         */
-
-        updateCardStatus(
-                tvRoadmapStatus,
-                true
-        );
-
-        updateCardStatus(
-                tvAssessmentsStatus,
-                true
-        );
-
-        updateCardStatus(
-                tvSimulationStatus,
-                true
-        );
-
-        updateCardStatus(
-                tvCollaborationStatus,
-                true
-        );
-
-        updateCardStatus(
-                tvAchievementsStatus,
-                true
-        );
+        // "Locked" becomes "Open →"
+        updateCardStatus(tvRoadmapStatus, true);
+        updateCardStatus(tvAssessmentsStatus, true);
+        updateCardStatus(tvSimulationStatus, true);
+        updateCardStatus(tvCollaborationStatus, true);
+        updateCardStatus(tvAchievementsStatus, true);
     }
-
 
     // ============================================================
     // UPDATE CARD STATUS
@@ -628,77 +387,45 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-
         if (unlocked) {
 
-            statusView.setText(
-                    "Open →"
-            );
-
-            statusView.setTextColor(
-                    android.graphics.Color.parseColor(
-                            "#6744B7"
-                    )
-            );
+            statusView.setText("Open →");
+            statusView.setTextColor(Color.parseColor("#6744B7"));
 
         } else {
 
-            statusView.setText(
-                    "🔒 Locked"
-            );
-
-            statusView.setTextColor(
-                    android.graphics.Color.parseColor(
-                            "#777A83"
-                    )
-            );
+            statusView.setText("🔒 Locked");
+            statusView.setTextColor(Color.parseColor("#777A83"));
         }
     }
-
 
     // ============================================================
     // LOCK CARD
     // ============================================================
 
-    private void lockCard(
-            CardView card
-    ) {
+    private void lockCard(CardView card) {
 
         if (card == null) {
             return;
         }
 
-        card.setEnabled(
-                false
-        );
-
-        card.setAlpha(
-                0.55f
-        );
+        card.setEnabled(false);
+        card.setAlpha(0.55f);
     }
-
 
     // ============================================================
     // UNLOCK CARD
     // ============================================================
 
-    private void unlockCard(
-            CardView card
-    ) {
+    private void unlockCard(CardView card) {
 
         if (card == null) {
             return;
         }
 
-        card.setEnabled(
-                true
-        );
-
-        card.setAlpha(
-                1.0f
-        );
+        card.setEnabled(true);
+        card.setAlpha(1.0f);
     }
-
 
     // ============================================================
     // CLICK LISTENERS
@@ -706,215 +433,182 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupClickListeners() {
 
-
         // ========================================================
         // LOGOUT
         // ========================================================
 
-        btnLogout.setOnClickListener(
-                view -> {
+        btnLogout.setOnClickListener(view -> {
 
-                    Intent intent =
-                            new Intent(
-                                    MainActivity.this,
-                                    LoginPage.class
-                            );
-
-                    /*
-                     * Clear the current Dashboard from
-                     * the back stack so the user cannot
-                     * press Back and return to it.
-                     */
-
-                    intent.addFlags(
-                            Intent.FLAG_ACTIVITY_NEW_TASK
-                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            LoginPage.class
                     );
 
-                    startActivity(
-                            intent
-                    );
+            // Clear the Dashboard from the back stack so the user
+            // can't press Back and return to it.
+            intent.addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            );
 
-                    finish();
-                }
-        );
-
+            startActivity(intent);
+            finish();
+        });
 
         // ========================================================
         // BASELINE ASSESSMENT
         // ========================================================
 
-        cardBaseline.setOnClickListener(
-                view -> {
+        cardBaseline.setOnClickListener(view -> {
 
-                    if (!isBaselineCompleted()) {
+            if (!isBaselineCompleted()) {
 
-                        Intent intent =
-                                new Intent(
-                                        MainActivity.this,
-                                        BaselineIntroductionActivity.class
-                                );
-
-                        startActivity(
-                                intent
+                Intent intent =
+                        new Intent(
+                                MainActivity.this,
+                                BaselineIntroductionActivity.class
                         );
 
-                    } else {
+                startActivity(intent);
 
-                        Toast.makeText(
-                                MainActivity.this,
-                                "Baseline Assessment already completed.",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                }
-        );
+            } else {
 
+                Toast.makeText(
+                        MainActivity.this,
+                        "Baseline Assessment already completed.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
 
         // ========================================================
         // ROADMAP
         // ========================================================
 
-        cardRoadmap.setOnClickListener(
-                view -> {
+        cardRoadmap.setOnClickListener(view -> {
 
-                    if (!isBaselineCompleted()) {
+            if (!isBaselineCompleted()) {
 
-                        showLockedMessage(
-                                "Complete the Baseline Assessment to unlock your Roadmap."
+                showLockedMessage(
+                        "Complete the Baseline Assessment to unlock your Roadmap."
+                );
+
+            } else {
+
+                Intent intent =
+                        new Intent(
+                                MainActivity.this,
+                                GeneratedRoadmapActivity.class
                         );
 
-                    } else {
+                intent.putExtra(
+                        GeneratedRoadmapActivity.EXTRA_PERCENTAGE,
+                        baselinePercentageCache
+                );
 
-                        Intent intent =
-                                new Intent(
-                                        MainActivity.this,
-                                        RoadmapBeginner.class
-                                );
-
-                        startActivity(
-                                intent
-                        );
-                    }
-                }
-        );
-
+                startActivity(intent);
+            }
+        });
 
         // ========================================================
         // ASSESSMENTS
         // ========================================================
 
-        cardAssessments.setOnClickListener(
-                view -> {
+        cardAssessments.setOnClickListener(view -> {
 
-                    if (!isBaselineCompleted()) {
+            if (!isBaselineCompleted()) {
 
-                        showLockedMessage(
-                                "Complete the Baseline Assessment to unlock Assessments."
-                        );
+                showLockedMessage(
+                        "Complete the Baseline Assessment to unlock Assessments."
+                );
 
-                    } else {
+            } else {
 
-                        /*
-                         * Keep your existing Assessments navigation here
-                         * when the Assessments Activity is connected.
-                         */
+                /*
+                 * Keep your existing Assessments navigation here
+                 * when the Assessments Activity is connected.
+                 */
 
-                        Toast.makeText(
-                                MainActivity.this,
-                                "Assessments selected.",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                }
-        );
-
+                Toast.makeText(
+                        MainActivity.this,
+                        "Assessments selected.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
 
         // ========================================================
         // SIMULATION
         // ========================================================
 
-        cardSimulation.setOnClickListener(
-                view -> {
+        cardSimulation.setOnClickListener(view -> {
 
-                    if (!isBaselineCompleted()) {
+            if (!isBaselineCompleted()) {
 
-                        showLockedMessage(
-                                "Complete the Baseline Assessment to unlock Simulation."
+                showLockedMessage(
+                        "Complete the Baseline Assessment to unlock Simulation."
+                );
+
+            } else {
+
+                Intent intent =
+                        new Intent(
+                                MainActivity.this,
+                                LabSimulationActivity.class
                         );
 
-                    } else {
-
-                        Intent intent =
-                                new Intent(
-                                        MainActivity.this,
-                                        LabSimulationActivity.class
-                                );
-
-                        startActivity(
-                                intent
-                        );
-                    }
-                }
-        );
-
+                startActivity(intent);
+            }
+        });
 
         // ========================================================
         // COLLABORATION
         // ========================================================
 
-        cardCollaboration.setOnClickListener(
-                view -> {
+        cardCollaboration.setOnClickListener(view -> {
 
-                    /*
-                     * Collaboration is available to everyone,
-                     * even if the Baseline Assessment has not
-                     * been completed.
-                     */
+            /*
+             * Collaboration is available to everyone, even if the
+             * Baseline Assessment has not been completed.
+             */
 
-                    Intent intent =
-                            new Intent(
-                                    MainActivity.this,
-                                    CollaborationActivity.class
-                            );
-
-                    startActivity(
-                            intent
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            CollaborationActivity.class
                     );
-                }
-        );
 
+            startActivity(intent);
+        });
 
         // ========================================================
         // ACHIEVEMENTS
         // ========================================================
 
-        cardAchievements.setOnClickListener(
-                view -> {
+        cardAchievements.setOnClickListener(view -> {
 
-                    if (!isBaselineCompleted()) {
+            if (!isBaselineCompleted()) {
 
-                        showLockedMessage(
-                                "Complete the Baseline Assessment to unlock Achievements."
-                        );
+                showLockedMessage(
+                        "Complete the Baseline Assessment to unlock Achievements."
+                );
 
-                    } else {
+            } else {
 
-                        /*
-                         * Keep your existing Achievements navigation here
-                         * when the Achievements Activity is connected.
-                         */
+                /*
+                 * Keep your existing Achievements navigation here
+                 * when the Achievements Activity is connected.
+                 */
 
-                        Toast.makeText(
-                                MainActivity.this,
-                                "Achievements selected.",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                }
-        );
+                Toast.makeText(
+                        MainActivity.this,
+                        "Achievements selected.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
-
 
     // ============================================================
     // CHECK BASELINE STATUS
@@ -922,24 +616,14 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isBaselineCompleted() {
 
-        if (dashboardPreferences == null) {
-            return false;
-        }
-
-        return dashboardPreferences.getBoolean(
-                KEY_BASELINE_COMPLETED,
-                false
-        );
+        return baselineCompletedCache;
     }
-
 
     // ============================================================
     // LOCKED CARD MESSAGE
     // ============================================================
 
-    private void showLockedMessage(
-            String message
-    ) {
+    private void showLockedMessage(String message) {
 
         Toast.makeText(
                 MainActivity.this,
@@ -947,7 +631,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT
         ).show();
     }
-
 
     // ============================================================
     // REFRESH DASHBOARD
@@ -965,7 +648,6 @@ public class MainActivity extends AppCompatActivity {
          */
 
         loadStudentProfile();
-
         loadDashboardState();
     }
 }

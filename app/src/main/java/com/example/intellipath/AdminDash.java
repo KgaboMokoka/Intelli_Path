@@ -12,6 +12,13 @@ public class AdminDash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dash);
 
+        findViewById(R.id.btnLogout).setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDash.this, LoginPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
         // Dashboard
         findViewById(R.id.navDashboard).setOnClickListener(v -> {
             // Already on the Admin Dashboard
