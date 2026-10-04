@@ -1,7 +1,6 @@
 package com.example.intellipath;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +16,19 @@ import com.example.intellipath.sections.systemarchitecture.LabSimulationActivity
 
 public class MainActivity extends AppCompatActivity {
 
+    // ID of the baseline row in the assessments table
+    private static final String BASELINE_ASSESSMENT_ID =
+            "c146a692-332e-4593-b1b1-3f4e198a6794";
+
+    // ============================================================
+    // DASHBOARD STATE (Supabase is the source of truth)
+    // ============================================================
+
+    private static final int PERCENTAGE_UNKNOWN = -1;
+
+    private boolean baselineCompletedCache = false;
+    private int baselinePercentageCache = PERCENTAGE_UNKNOWN;
+
     // ============================================================
     // DASHBOARD CARDS
     // ============================================================
@@ -28,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private CardView cardCollaboration;
     private CardView cardAchievements;
 
-
     // ============================================================
     // DASHBOARD TEXT
     // ============================================================
@@ -36,29 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvUserName;
     private TextView tvReadinessScore;
     private TextView tvReadinessStatus;
-
-
-    // ============================================================
-    // LOCAL DASHBOARD STATE
-    // (Supabase is the source of truth; these prefs only mirror it
-    // so the click listeners can check completion quickly.)
-    // ============================================================
-
-    private SharedPreferences dashboardPreferences;
-
-    private static final String PREFS_NAME =
-            "IntelliPathDashboard";
-
-    private static final String KEY_BASELINE_COMPLETED =
-            "baseline_completed";
-
-    private static final String KEY_READINESS_SCORE =
-            "readiness_score";
-
-    // ID of the baseline row in the assessments table
-    private static final String BASELINE_ASSESSMENT_ID =
-            "c146a692-332e-4593-b1b1-3f4e198a6794";
-
 
     // ============================================================
     // ON CREATE
@@ -71,12 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        dashboardPreferences =
-                getSharedPreferences(
-                        PREFS_NAME,
-                        MODE_PRIVATE
-                );
-
         // Find Dashboard views
         initialiseViews();
 
@@ -86,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         // Profile and dashboard state are loaded in onResume(),
         // which always runs right after onCreate().
     }
-
 
     // ============================================================
     // INITIALISE VIEWS
@@ -103,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         tvReadinessStatus =
                 findViewById(R.id.tvBaselineMessage);
-
 
         // Dashboard cards
         cardBaseline =
@@ -125,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.cardAchievements);
     }
 
-
     // ============================================================
     // LOAD STUDENT PROFILE
     // ============================================================
@@ -137,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(StudentRow student) {
+
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
                         String firstName =
                                 student.getFirst_name();
@@ -158,9 +141,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-
                     @Override
                     public void onError(String message) {
+
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
                         // Do not prevent Dashboard from opening
                         // if the profile cannot be retrieved.
@@ -173,17 +159,23 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-
     // ============================================================
     // LOAD DASHBOARD STATE (FROM SUPABASE)
     // ============================================================
 
     private void loadDashboardState() {
 
-        // Neutral state until the database answers
-        tvReadinessScore.setText("Loading...");
-        tvReadinessStatus.setText("Checking your baseline results...");
+        // Reset until the database answers
+        baselineCompletedCache = false;
+        baselinePercentageCache = PERCENTAGE_UNKNOWN;
 
+        tvReadinessScore.setText("Loading...");
+        tvReadinessStatus.setText(
+                "Checking your assessment status..."
+        );
+
+        // Everything stays locked (including Baseline) while loading,
+        // so a student can't start the test before we know their status.
         lockDashboardCards();
         lockCard(cardBaseline);
 
@@ -192,40 +184,75 @@ public class MainActivity extends AppCompatActivity {
                 new AssessmentRepository.Callback<StudentAssessmentReadRow>() {
 
                     @Override
-                    public void onSuccess(StudentAssessmentReadRow result) {
+                    public void onSuccess(
+                            StudentAssessmentReadRow result
+                    ) {
 
-                        SharedPreferences.Editor editor =
-                                dashboardPreferences.edit();
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
 
                         // No completed baseline for this student
                         if (result == null) {
 
-                            editor.putBoolean(KEY_BASELINE_COMPLETED, false);
-                            editor.remove(KEY_READINESS_SCORE);
-                            editor.apply();
+                            baselineCompletedCache = false;
+                            baselinePercentageCache = PERCENTAGE_UNKNOWN;
 
-                            showBaselineNotCompleted();
+                            tvReadinessScore.setText(
+                                    "Not Calculated Yet"
+                            );
+
+                            tvReadinessStatus.setText(
+                                    "Complete your Baseline Assessment to unlock "
+                                            + "your personalised roadmap and progress tracking."
+                            );
+
+                            lockDashboardCards();
                             return;
                         }
 
-                        String score = "";
+                        baselineCompletedCache = true;
 
-                        if (result.getPercentage() != null) {
-                            score = String.valueOf(
-                                    Math.round(result.getPercentage())
+                        Double percentage =
+                                result.getPercentage();
+
+                        if (percentage != null) {
+
+                            baselinePercentageCache =
+                                    (int) Math.round(percentage);
+
+                            tvReadinessScore.setText(
+                                    baselinePercentageCache + "%"
+                            );
+
+                        } else {
+
+                            baselinePercentageCache = PERCENTAGE_UNKNOWN;
+
+                            tvReadinessScore.setText(
+                                    "Calculated"
                             );
                         }
 
-                        editor.putBoolean(KEY_BASELINE_COMPLETED, true);
-                        editor.putString(KEY_READINESS_SCORE, score);
-                        editor.apply();
+                        tvReadinessStatus.setText(
+                                "Your personalised readiness profile is ready."
+                        );
 
-                        showBaselineCompleted(score);
+                        unlockDashboardCards();
                     }
-
 
                     @Override
                     public void onError(String message) {
+
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+
+                        // We don't know the student's status, so don't let
+                        // them start the baseline again by accident.
+
+                        baselineCompletedCache = false;
+                        baselinePercentageCache = PERCENTAGE_UNKNOWN;
 
                         tvReadinessScore.setText("Unavailable");
 
@@ -234,49 +261,11 @@ public class MainActivity extends AppCompatActivity {
                         );
 
                         lockDashboardCards();
+                        lockCard(cardBaseline);
                     }
                 }
         );
     }
-
-
-    private void showBaselineNotCompleted() {
-
-        tvReadinessScore.setText(
-                "Not Calculated Yet"
-        );
-
-        tvReadinessStatus.setText(
-                "Complete your Baseline Assessment to unlock "
-                        + "your personalised roadmap and progress tracking."
-        );
-
-        lockDashboardCards();
-    }
-
-
-    private void showBaselineCompleted(String score) {
-
-        if (score == null || score.trim().isEmpty()) {
-
-            tvReadinessScore.setText(
-                    "Calculated"
-            );
-
-        } else {
-
-            tvReadinessScore.setText(
-                    score + "%"
-            );
-        }
-
-        tvReadinessStatus.setText(
-                "Your personalised readiness profile is ready."
-        );
-
-        unlockDashboardCards();
-    }
-
 
     // ============================================================
     // LOCK DASHBOARD CARDS
@@ -287,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
         // Baseline remains available
         unlockCard(cardBaseline);
 
-
         // Remaining cards are locked
         lockCard(cardRoadmap);
         lockCard(cardAssessments);
@@ -295,7 +283,6 @@ public class MainActivity extends AppCompatActivity {
         lockCard(cardCollaboration);
         lockCard(cardAchievements);
     }
-
 
     // ============================================================
     // UNLOCK DASHBOARD CARDS
@@ -311,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
         unlockCard(cardAchievements);
     }
 
-
     // ============================================================
     // LOCK CARD
     // ============================================================
@@ -325,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
         card.setEnabled(false);
         card.setAlpha(0.55f);
     }
-
 
     // ============================================================
     // UNLOCK CARD
@@ -341,13 +326,11 @@ public class MainActivity extends AppCompatActivity {
         card.setAlpha(1.0f);
     }
 
-
     // ============================================================
     // CLICK LISTENERS
     // ============================================================
 
     private void setupClickListeners() {
-
 
         // ========================================================
         // BASELINE ASSESSMENT
@@ -375,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // ========================================================
         // ROADMAP
         // ========================================================
@@ -390,16 +372,19 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                Intent intent =
-                        new Intent(
-                                MainActivity.this,
-                                RoadmapBeginner.class
-                        );
+                Intent intent = new Intent(
+                        MainActivity.this,
+                        GeneratedRoadmapActivity.class
+                );
+
+                intent.putExtra(
+                        GeneratedRoadmapActivity.EXTRA_PERCENTAGE,
+                        baselinePercentageCache
+                );
 
                 startActivity(intent);
             }
         });
-
 
         // ========================================================
         // ASSESSMENTS
@@ -428,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // ========================================================
         // SIMULATION
         // ========================================================
@@ -453,7 +437,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // ========================================================
         // COLLABORATION
         // ========================================================
@@ -477,7 +460,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         // ========================================================
         // ACHIEVEMENTS
@@ -507,23 +489,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     // ============================================================
     // CHECK BASELINE STATUS
     // ============================================================
 
     private boolean isBaselineCompleted() {
 
-        if (dashboardPreferences == null) {
-            return false;
-        }
-
-        return dashboardPreferences.getBoolean(
-                KEY_BASELINE_COMPLETED,
-                false
-        );
+        return baselineCompletedCache;
     }
-
 
     // ============================================================
     // LOCKED CARD MESSAGE
@@ -537,7 +510,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT
         ).show();
     }
-
 
     // ============================================================
     // REFRESH DASHBOARD
