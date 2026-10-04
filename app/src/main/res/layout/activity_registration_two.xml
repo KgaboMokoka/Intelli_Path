@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Campus"
+            android:text="Campus *"
             android:textStyle="bold"
             android:textColor="@color/primary"
             android:layout_marginBottom="6dp"/>
@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Academic Year"
+            android:text="Current Academic Year *"
             android:textStyle="bold"
             android:textColor="@color/primary"
             android:layout_marginBottom="6dp"/>
@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Career Goal"
+            android:text="Career Goal *"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/primary"/>

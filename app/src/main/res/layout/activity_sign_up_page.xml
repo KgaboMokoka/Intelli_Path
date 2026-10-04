@@ -13,15 +13,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/backButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_arrow_back"-->
-<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--            android:contentDescription="Back"-->
-<!--            android:layout_marginBottom="10dp"/>-->
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,6 +28,14 @@
             android:text="Join IntelliPath to start your learning journey"
             android:textAlignment="center"
             android:textColor="@color/primary"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fields marked with * are required"
+            android:textAlignment="center"
+            android:textSize="12sp"
             android:layout_marginBottom="20dp"/>
 
         <LinearLayout
@@ -59,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
+                        android:text="First Name *"
                         android:textStyle="bold"
                         android:textColor="@color/primary"
                         android:layout_marginBottom="4dp"/>
@@ -84,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Surname"
+                        android:text="Surname *"
                         android:textStyle="bold"
                         android:textColor="@color/primary"
                         android:layout_marginBottom="4dp"/>
@@ -103,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student Number"
+                android:text="Student Number (optional)"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
                 android:layout_marginTop="16dp"
@@ -121,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Email *"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
                 android:layout_marginTop="16dp"
@@ -139,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="Password *"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
                 android:layout_marginTop="16dp"
@@ -155,9 +154,16 @@
                 android:padding="14dp"/>
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="At least 8 characters, with an uppercase letter, a lowercase letter, a number and a special character."
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password"
+                android:text="Confirm Password *"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
                 android:layout_marginTop="16dp"
@@ -172,13 +178,26 @@
                 android:background="@drawable/bg_input_field"
                 android:padding="14dp"/>
 
-            <CheckBox
-                android:id="@+id/termsAndConditions"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="I agree to the Terms and Conditions"
-                android:checked="false"
-                android:layout_marginTop="16dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp">
+
+                <CheckBox
+                    android:id="@+id/termsAndConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"/>
+
+                <TextView
+                    android:id="@+id/termsText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14sp"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/registerButton"
