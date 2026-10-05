@@ -13,6 +13,11 @@ import com.example.intellipath.data.SupabaseAuthRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import android.text.InputType;
+import android.util.Patterns;
+import android.widget.FrameLayout;
+import androidx.appcompat.app.AlertDialog;
+
 public class LoginPage extends AppCompatActivity {
 
     private EditText email, password;
@@ -40,6 +45,8 @@ public class LoginPage extends AppCompatActivity {
                         )
                 )
         );
+
+        findViewById(R.id.forgotPassword).setOnClickListener(v -> showForgotPasswordDialog());
     }
 
     private void logIn() {
@@ -124,5 +131,80 @@ public class LoginPage extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void showForgotPasswordDialog() {
+
+        final EditText input = new EditText(this);
+        input.setInputType(
+                InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        );
+        input.setHint("Email");
+        input.setText(email.getText().toString().trim());
+
+        int pad = (int) (20 * getResources().getDisplayMetrics().density);
+        FrameLayout container = new FrameLayout(this);
+        container.setPadding(pad, pad / 2, pad, 0);
+        container.addView(input);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Reset your password")
+                .setMessage("Enter your email and we'll send you a code to reset it.")
+                .setView(container)
+                .setPositiveButton("Send code", null)   // set below so it doesn't auto-close
+                .setNegativeButton("Cancel", null)
+                .create();
+
+        dialog.setOnShowListener(d -> {
+
+            final android.widget.Button sendButton =
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+            sendButton.setOnClickListener(v -> {
+
+                final String emailVal = input.getText().toString().trim();
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(emailVal).matches()) {
+                    input.setError("Enter a valid email address");
+                    return; // dialog stays open
+                }
+
+                sendButton.setEnabled(false);
+
+                SupabaseAuthRepository.sendPasswordReset(
+                        emailVal,
+                        new SupabaseAuthRepository.AuthCallback() {
+
+                            @Override
+                            public void onSuccess() {
+                                dialog.dismiss();
+
+                                Toast.makeText(
+                                        LoginPage.this,
+                                        "If that email is registered, a code is on its way.",
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                                Intent intent = new Intent(LoginPage.this, ResetPasswordActivity.class);
+                                intent.putExtra(ResetPasswordActivity.EXTRA_EMAIL, emailVal);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onError(@NotNull String message) {
+                                sendButton.setEnabled(true);
+
+                                String friendly = message.contains("rate_limit")
+                                        ? "Too many requests. Please wait a few minutes and try again."
+                                        : message;
+
+                                Toast.makeText(LoginPage.this, friendly, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                );
+            });
+        });
+
+        dialog.show();
     }
 }
