@@ -163,7 +163,7 @@ public class SignUpPage extends AppCompatActivity {
         }
 
         // --- Password ---
-        String passwordError = getPasswordError(passwordVal);
+        String passwordError = PasswordValidator.getError(passwordVal);
 
         if (passwordError != null) {
             password.setError(passwordError);
