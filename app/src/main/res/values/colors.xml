@@ -3,10 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#081B4B</color>
+    <color name="primary">#000730</color>
     <color name="secondary">#4B2E83</color>
     <color name="accent">#D4AF37</color>
     <color name="success">#0F5E5E</color>
     <color name="fail">#9B2C2C</color>
 
+    <!-- Purple Tint Page Background & Card Styles -->
+    <color name="bg_purple_tint">#F4F2F9</color> <!-- Light purple-tinted background -->
+    <color name="input_border">#D1D5DB</color>
+    <color name="text_muted">#5A5A72</color>
 </resources>

@@ -11,6 +11,12 @@ public class AssesmentManagement extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assesment_management);
+        findViewById(R.id.btnLogout).setOnClickListener(v -> {
+            Intent intent = new Intent(AssesmentManagement.this, LoginPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
 
         // Dashboard
         findViewById(R.id.navDashboard).setOnClickListener(v -> {
