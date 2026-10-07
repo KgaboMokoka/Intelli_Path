@@ -16,19 +16,28 @@
         android:padding="20dp">
 
         <!-- Top Header Lock Circle -->
+        <!-- IntelliPath Logo -->
         <FrameLayout
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="160dp"
+            android:layout_height="140dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_button_outline"
-            android:backgroundTint="#EAE6F5">
+            android:gravity="center">
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center"
-                android:src="@android:drawable/ic_lock_lock"
-                app:tint="@color/primary" />
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher_round" />
+
+            </androidx.cardview.widget.CardView>
+
         </FrameLayout>
 
         <TextView
