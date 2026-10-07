@@ -41,7 +41,7 @@ public class SignUpPage extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirmPassword);
-        termsCheckBox = findViewById(R.id.termsAndConditions);
+        termsCheckBox = findViewById(R.id.termsCheckBox);
         termsText = findViewById(R.id.termsText);
 
         setupTermsText();
