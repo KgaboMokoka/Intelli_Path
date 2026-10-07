@@ -40,24 +40,17 @@
 
         </LinearLayout>
 
-        <!-- Image / Illustration Placeholder -->
-        <LinearLayout
+        <!-- Baseline Assessment Illustration -->
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:layout_margin="20dp"
-            android:background="#E5E7EB"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Baseline Assessment"
-                android:textColor="#6B7280"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="Baseline Assessment illustration"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_assessment" />
 
         <!-- Baseline Label -->
         <TextView
