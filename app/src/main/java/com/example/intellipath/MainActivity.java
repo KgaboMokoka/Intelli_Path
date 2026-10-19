@@ -511,6 +511,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         // ========================================================
         // ASSESSMENTS
         // ========================================================
@@ -525,18 +526,15 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                /*
-                 * Keep your existing Assessments navigation here
-                 * when the Assessments Activity is connected.
-                 */
-
-                Toast.makeText(
+                Intent intent = new Intent(
                         MainActivity.this,
-                        "Assessments selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        AssessmentHistoryActivity.class
+                );
+
+                startActivity(intent);
             }
         });
+
 
         // ========================================================
         // SIMULATION
@@ -582,6 +580,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
         // ========================================================
         // ACHIEVEMENTS
         // ========================================================
@@ -596,18 +595,15 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
 
-                /*
-                 * Keep your existing Achievements navigation here
-                 * when the Achievements Activity is connected.
-                 */
-
-                Toast.makeText(
+                Intent intent = new Intent(
                         MainActivity.this,
-                        "Achievements selected.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        AchievementsActivity.class
+                );
+
+                startActivity(intent);
             }
         });
+
     }
 
     // ============================================================
