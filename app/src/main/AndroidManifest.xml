@@ -68,6 +68,12 @@
             android:name=".AdminSettings"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AssessmentHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AchievementsActivity"
+            android:exported="false" />
 
         <!-- Baseline Assessment -->
         <activity
