@@ -137,17 +137,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="1,248"
+                android:text="5"
                 android:textColor="#17172F"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="↑ 12% this month"
-                android:textColor="#6C5CE7"
-                android:textSize="9sp" />
+
 
         </LinearLayout>
 
@@ -175,17 +170,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="3,450"
+                android:text="3"
                 android:textColor="#17172F"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="↑ 8% this week"
-                android:textColor="#6C5CE7"
-                android:textSize="9sp" />
+
 
         </LinearLayout>
 
@@ -251,17 +241,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="215"
+                android:text="2"
                 android:textColor="#17172F"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="↑ 10% this month"
-                android:textColor="#6C5CE7"
-                android:textSize="9sp" />
 
         </LinearLayout>
 
@@ -289,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="84"
+                android:text="1"
                 android:textColor="#D94A4A"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -327,7 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="12"
+                android:text="0"
                 android:textColor="#17172F"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -401,27 +385,6 @@
         </LinearLayout>
 
 
-        <!-- COMPLETION RATE -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="Completion Rate Trends"
-            android:textColor="#17172F"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text=""
-            android:textColor="#6C5CE7"
-            android:textSize="35sp"
-            android:background="#FFFFFF"
-            android:elevation="2dp" />
 
 
         <!-- RECENT ACTIVITY -->
@@ -447,7 +410,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="●  Sarah Jenkins registered for Software Engineering path."
+                android:text="●  Boity Kgasi registered for Software Engineering path."
                 android:textColor="#44445A"
                 android:textSize="11sp"
                 android:paddingBottom="12dp" />
@@ -455,23 +418,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="●  Michael Chen completed Core Python Assessment."
+                android:text="●  Kgabo Mokoka completed Core Python Assessment."
                 android:textColor="#44445A"
                 android:textSize="11sp"
                 android:paddingBottom="12dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="●  New report generated for Data Science Cohort."
-                android:textColor="#44445A"
-                android:textSize="11sp"
-                android:paddingBottom="12dp" />
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="●  Elena Rodriguez completed Data Structures Assessment."
+                android:text="●  Hlonipha Baloyi completed Data Structures Assessment."
                 android:textColor="#44445A"
                 android:textSize="11sp" />
 

@@ -1,0 +1,213 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7FB"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/btnBackStudents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="← Back to Student Directory"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Add Student"
+            android:textColor="#151C52"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Enter the student's information below."
+            android:textColor="#666A80"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Personal Information"
+            android:textColor="#151C52"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Full Name *"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="5dp"
+            android:hint="Enter full name"
+            android:inputType="textCapWords"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Student ID "
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputStudentId"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="5dp"
+            android:hint="e.g. STU-981234"
+            android:inputType="textCapCharacters"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Email Address *"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputStudentEmail"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="5dp"
+            android:hint="student@example.com"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="#DFE0EB" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Academic Information"
+            android:textColor="#151C52"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Academic Year"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerAcademicYear"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Campus"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerCampus"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Career Goal"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerCareerGoal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Student Status"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerStudentStatus"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:paddingHorizontal="8dp" />
+
+        <Button
+            android:id="@+id/btnSaveStudent"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="#151C52"
+            android:text="Add Student"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnCancelStudent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#E9E8F8"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>
