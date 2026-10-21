@@ -1,5 +1,4 @@
 package com.example.intellipath.data
-
 import com.example.intellipath.data.SupabaseProvider
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.postgrest.postgrest
