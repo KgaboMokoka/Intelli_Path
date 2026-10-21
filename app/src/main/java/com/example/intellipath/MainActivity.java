@@ -631,7 +631,6 @@ public class MainActivity extends AppCompatActivity {
     // ============================================================
     // REFRESH DASHBOARD
     // ============================================================
-
     @Override
     protected void onResume() {
 

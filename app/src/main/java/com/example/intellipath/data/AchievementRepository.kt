@@ -1,4 +1,3 @@
-
 package com.example.intellipath.data
 
 import io.github.jan.supabase.auth.auth
