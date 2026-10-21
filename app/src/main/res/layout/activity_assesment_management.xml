@@ -82,6 +82,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/inputAssessmentSearch"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -95,6 +96,7 @@
                 android:layout_height="1dp" />
 
             <Button
+                android:id="@+id/btnCreateAssessment"
                 android:layout_width="85dp"
                 android:layout_height="42dp"
                 android:text="+ Create"
@@ -107,6 +109,7 @@
         <!-- NEW ASSESSMENT -->
 
         <LinearLayout
+            android:id="@+id/btnNewAssessment"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_marginTop="10dp"

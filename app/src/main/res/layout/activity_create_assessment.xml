@@ -1,0 +1,216 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7FB"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/btnBackAssessments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="← Back to Assessments"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Create Assessment"
+            android:textColor="#151C52"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Build an assessment for a learning topic."
+            android:textColor="#666A80"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="#E9E8F8"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="DRAFT"
+            android:textColor="#5146A5"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Assessment Details"
+            android:textColor="#151C52"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Assessment Title"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputAssessmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:hint="e.g. SQL Fundamentals"
+            android:inputType="textCapSentences"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textColorHint="#898BA0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Description"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputAssessmentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="6dp"
+            android:gravity="top"
+            android:hint="Describe what students will learn."
+            android:inputType="textCapSentences|textMultiLine"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textColorHint="#898BA0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Difficulty"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:paddingHorizontal="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Time Limit (minutes)"
+            android:textColor="#252944"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputTimeLimit"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="6dp"
+            android:hint="e.g. 20"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="#20233D"
+            android:textColorHint="#898BA0"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="26dp"
+            android:background="#DFE0EB" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Questions"
+            android:textColor="#151C52"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Add questions and select their correct answers."
+            android:textColor="#666A80"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/questionsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/btnAddQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="#E9E8F8"
+            android:text="+ Add Question"
+            android:textAllCaps="false"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="The admin selects the correct answer for automatic marking."
+            android:textColor="#666A80"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnSaveDraft"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="#E9E8F8"
+            android:text="Save Draft"
+            android:textAllCaps="false"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnPublishAssessment"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#151C52"
+            android:text="Publish Assessment"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>
