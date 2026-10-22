@@ -35,4 +35,7 @@ public class BaselineIntroductionActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    public void setContentView(int activityBaselineIntroduction) {
+    }
 }
