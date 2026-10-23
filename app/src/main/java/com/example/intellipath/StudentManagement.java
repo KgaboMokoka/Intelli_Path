@@ -1,5 +1,6 @@
 package com.example.intellipath;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -25,6 +27,10 @@ public class StudentManagement extends AppCompatActivity {
 
     private LinearLayout savedStudentsContainer;
     private EditText inputStudentSearch;
+
+    private static final String PREFS_NAME = "IntelliPathStudents";
+    private static final String STUDENTS_KEY = "students";
+    private static final String DELETED_SAMPLES_KEY = "deletedSampleStudents";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +55,22 @@ public class StudentManagement extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btnAddStudent).setOnClickListener(v -> {
-            startActivity(new Intent(
-                    StudentManagement.this,
-                    AddStudentActivity.class
-            ));
-        });
+        findViewById(R.id.btnAddStudent).setOnClickListener(v ->
+                startActivity(new Intent(this, AddStudentActivity.class)));
+
+        findViewById(R.id.btnDeleteKgabo).setOnClickListener(v ->
+                confirmDeleteSample("Kgabo Mokoka"));
+
+        findViewById(R.id.btnDeleteBoitumelo).setOnClickListener(v ->
+                confirmDeleteSample("Boitumelo Kgasi"));
+
+        findViewById(R.id.btnDeleteHlonipha).setOnClickListener(v ->
+                confirmDeleteSample("Hlonipha Baloyi"));
 
         findViewById(R.id.btnLogout).setOnClickListener(v -> {
-            Intent intent = new Intent(StudentManagement.this, LoginPage.class);
-            intent.setFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK |
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK
-            );
+            Intent intent = new Intent(this, LoginPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
@@ -70,7 +79,6 @@ public class StudentManagement extends AppCompatActivity {
                 startActivity(new Intent(this, AdminDash.class)));
 
         findViewById(R.id.navStudents).setOnClickListener(v -> {
-            // Already on Student Directory.
         });
 
         findViewById(R.id.navAssessments).setOnClickListener(v ->
@@ -87,6 +95,7 @@ public class StudentManagement extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadSavedStudents();
+        applyDeletedSampleStudents();
         filterStudents(inputStudentSearch.getText().toString());
     }
 
@@ -94,31 +103,23 @@ public class StudentManagement extends AppCompatActivity {
         savedStudentsContainer.removeAllViews();
 
         SharedPreferences preferences = getSharedPreferences(
-                "IntelliPathStudents",
-                MODE_PRIVATE
-        );
+                PREFS_NAME, MODE_PRIVATE);
 
         try {
             JSONArray students = new JSONArray(
-                    preferences.getString("students", "[]")
-            );
+                    preferences.getString(STUDENTS_KEY, "[]"));
 
             for (int i = 0; i < students.length(); i++) {
                 addStudentCard(students.getJSONObject(i));
             }
-
         } catch (Exception e) {
-            Toast.makeText(
-                    this,
-                    "Could not load saved students.",
-                    Toast.LENGTH_SHORT
-            ).show();
+            Toast.makeText(this, "Could not load saved students.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
     private int dp(int value) {
-        return (int) (value * getResources()
-                .getDisplayMetrics().density);
+        return (int) (value * getResources().getDisplayMetrics().density);
     }
 
     private void addStudentCard(JSONObject student) {
@@ -129,11 +130,9 @@ public class StudentManagement extends AppCompatActivity {
         card.setBackgroundColor(Color.WHITE);
         card.setElevation(dp(2));
 
-        LinearLayout.LayoutParams cardParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
         cardParams.topMargin = dp(12);
         card.setLayoutParams(cardParams);
 
@@ -145,9 +144,7 @@ public class StudentManagement extends AppCompatActivity {
         String status = student.optString("status", "Active");
 
         TextView initials = new TextView(this);
-        initials.setLayoutParams(new LinearLayout.LayoutParams(
-                dp(50), dp(50)
-        ));
+        initials.setLayoutParams(new LinearLayout.LayoutParams(dp(50), dp(50)));
         initials.setGravity(Gravity.CENTER);
         initials.setText(getInitials(name));
         initials.setTextColor(Color.WHITE);
@@ -160,45 +157,14 @@ public class StudentManagement extends AppCompatActivity {
         details.setOrientation(LinearLayout.VERTICAL);
         details.setPadding(dp(12), 0, 0, 0);
 
-        LinearLayout.LayoutParams detailsParams =
-                new LinearLayout.LayoutParams(
-                        0,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        1
-                );
-        card.addView(details, detailsParams);
+        card.addView(details, new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView nameView = new TextView(this);
-        nameView.setText(name);
-        nameView.setTextColor(Color.rgb(23, 23, 47));
-        nameView.setTextSize(14);
-        nameView.setTypeface(null, Typeface.BOLD);
-        details.addView(nameView);
-
-        TextView idView = new TextView(this);
-        idView.setText("ID: " + studentId);
-        idView.setTextColor(Color.rgb(119, 119, 138));
-        idView.setTextSize(10);
-        details.addView(idView);
-
-        TextView emailView = new TextView(this);
-        emailView.setText(email);
-        emailView.setTextColor(Color.rgb(119, 119, 138));
-        emailView.setTextSize(10);
-        details.addView(emailView);
-
-        TextView yearView = new TextView(this);
-        yearView.setText("YEAR: " + year);
-        yearView.setTextColor(Color.rgb(85, 85, 106));
-        yearView.setTextSize(10);
-        yearView.setPadding(0, dp(8), 0, 0);
-        details.addView(yearView);
-
-        TextView goalView = new TextView(this);
-        goalView.setText("GOAL: " + goal);
-        goalView.setTextColor(Color.rgb(85, 85, 106));
-        goalView.setTextSize(10);
-        details.addView(goalView);
+        addDetail(details, name, true);
+        addDetail(details, "ID: " + studentId, false);
+        addDetail(details, email, false);
+        addDetail(details, "YEAR: " + year, false);
+        addDetail(details, "GOAL: " + goal, false);
 
         TextView statusView = new TextView(this);
         statusView.setText("● " + status);
@@ -214,7 +180,39 @@ public class StudentManagement extends AppCompatActivity {
         }
 
         details.addView(statusView);
+
+        Button deleteButton = new Button(this);
+        deleteButton.setText("Delete");
+        deleteButton.setTextSize(10);
+        deleteButton.setTextColor(Color.WHITE);
+        deleteButton.setBackgroundTintList(
+                android.content.res.ColorStateList.valueOf(
+                        Color.rgb(217, 83, 79)));
+
+        LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(
+                dp(70), dp(40));
+        deleteParams.leftMargin = dp(6);
+        deleteButton.setLayoutParams(deleteParams);
+
+        deleteButton.setOnClickListener(v ->
+                confirmDeleteSavedStudent(studentId, name));
+
+        card.addView(deleteButton);
         savedStudentsContainer.addView(card);
+    }
+
+    private void addDetail(LinearLayout container, String value, boolean bold) {
+        TextView text = new TextView(this);
+        text.setText(value);
+        text.setTextColor(bold ? Color.rgb(23, 23, 47) :
+                Color.rgb(119, 119, 138));
+        text.setTextSize(bold ? 14 : 10);
+
+        if (bold) {
+            text.setTypeface(null, Typeface.BOLD);
+        }
+
+        container.addView(text);
     }
 
     private String getInitials(String name) {
@@ -225,33 +223,172 @@ public class StudentManagement extends AppCompatActivity {
         }
 
         if (parts.length == 1) {
-            return parts[0].substring(
-                    0, Math.min(2, parts[0].length())
-            ).toUpperCase();
+            return parts[0].substring(0, Math.min(2, parts[0].length()))
+                    .toUpperCase();
         }
 
         return (parts[0].substring(0, 1) +
-                parts[parts.length - 1].substring(0, 1))
-                .toUpperCase();
+                parts[parts.length - 1].substring(0, 1)).toUpperCase();
+    }
+
+    private void confirmDeleteSavedStudent(String studentId, String name) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Student")
+                .setMessage("Are you sure you want to permanently delete "
+                        + name + "?")
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    SharedPreferences preferences = getSharedPreferences(
+                            PREFS_NAME, MODE_PRIVATE);
+
+                    try {
+                        JSONArray students = new JSONArray(
+                                preferences.getString(STUDENTS_KEY, "[]"));
+                        JSONArray updatedStudents = new JSONArray();
+                        boolean deleted = false;
+
+                        for (int i = 0; i < students.length(); i++) {
+                            JSONObject student = students.getJSONObject(i);
+
+                            boolean matches = student.optString("studentId")
+                                    .equalsIgnoreCase(studentId);
+
+                            if (matches && !deleted) {
+                                deleted = true;
+                            } else {
+                                updatedStudents.put(student);
+                            }
+                        }
+
+                        if (deleted) {
+                            preferences.edit()
+                                    .putString(STUDENTS_KEY,
+                                            updatedStudents.toString())
+                                    .apply();
+
+                            loadSavedStudents();
+                            applyDeletedSampleStudents();
+                            filterStudents(inputStudentSearch.getText().toString());
+
+                            Toast.makeText(this, name + " deleted successfully.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Student was not found.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Could not delete student.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
+
+    private void confirmDeleteSample(String name) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Student")
+                .setMessage("Are you sure you want to permanently delete "
+                        + name + "?")
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    SharedPreferences preferences = getSharedPreferences(
+                            PREFS_NAME, MODE_PRIVATE);
+
+                    try {
+                        JSONArray deletedStudents = new JSONArray(
+                                preferences.getString(DELETED_SAMPLES_KEY, "[]"));
+
+                        boolean alreadyDeleted = false;
+
+                        for (int i = 0; i < deletedStudents.length(); i++) {
+                            if (deletedStudents.getString(i).equalsIgnoreCase(name)) {
+                                alreadyDeleted = true;
+                                break;
+                            }
+                        }
+
+                        if (!alreadyDeleted) {
+                            deletedStudents.put(name);
+                        }
+
+                        preferences.edit()
+                                .putString(DELETED_SAMPLES_KEY,
+                                        deletedStudents.toString())
+                                .apply();
+
+                        applyDeletedSampleStudents();
+                        filterStudents(inputStudentSearch.getText().toString());
+
+                        Toast.makeText(this, name + " deleted permanently.",
+                                Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Could not delete student.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
+
+    private void applyDeletedSampleStudents() {
+        SharedPreferences preferences = getSharedPreferences(
+                PREFS_NAME, MODE_PRIVATE);
+
+        try {
+            JSONArray deletedStudents = new JSONArray(
+                    preferences.getString(DELETED_SAMPLES_KEY, "[]"));
+
+            ScrollView scrollView = findStudentScrollView();
+
+            if (scrollView == null || scrollView.getChildCount() == 0) {
+                return;
+            }
+
+            View rootView = scrollView.getChildAt(0);
+
+            if (!(rootView instanceof LinearLayout)) {
+                return;
+            }
+
+            LinearLayout root = (LinearLayout) rootView;
+
+            for (int i = root.getChildCount() - 1; i >= 0; i--) {
+                View child = root.getChildAt(i);
+
+                if (child == savedStudentsContainer ||
+                        child.findViewById(R.id.navDashboard) != null) {
+                    continue;
+                }
+
+                String text = getAllText(child).toLowerCase();
+
+                for (int j = 0; j < deletedStudents.length(); j++) {
+                    String deletedName = deletedStudents.getString(j)
+                            .toLowerCase();
+
+                    if (text.contains(deletedName)) {
+                        root.removeView(child);
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void filterStudents(String query) {
         String search = query.trim().toLowerCase();
 
-        // Filter newly saved students.
         for (int i = 0; i < savedStudentsContainer.getChildCount(); i++) {
             View card = savedStudentsContainer.getChildAt(i);
-            String cardText = getAllText(card).toLowerCase();
-
-            card.setVisibility(
-                    cardText.contains(search) ? View.VISIBLE : View.GONE
-            );
+            card.setVisibility(getAllText(card).toLowerCase().contains(search)
+                    ? View.VISIBLE : View.GONE);
         }
 
-        // Filter the original example student cards.
         ScrollView scrollView = findStudentScrollView();
 
-        if (scrollView == null) {
+        if (scrollView == null || scrollView.getChildCount() == 0) {
             return;
         }
 
@@ -266,21 +403,18 @@ public class StudentManagement extends AppCompatActivity {
         for (int i = 0; i < root.getChildCount(); i++) {
             View child = root.getChildAt(i);
 
-            // Skip the saved-student container and bottom navigation.
             if (child == savedStudentsContainer ||
                     child.findViewById(R.id.navDashboard) != null) {
                 continue;
             }
 
-            String cardText = getAllText(child).toLowerCase();
+            String text = getAllText(child).toLowerCase();
 
-            if (cardText.contains("kgabo mokoka") ||
-                    cardText.contains("boitumelo kgasi") ||
-                    cardText.contains("hlonipha baloyi")) {
-
-                child.setVisibility(
-                        cardText.contains(search) ? View.VISIBLE : View.GONE
-                );
+            if (text.contains("kgabo mokoka") ||
+                    text.contains("boitumelo kgasi") ||
+                    text.contains("hlonipha baloyi")) {
+                child.setVisibility(text.contains(search)
+                        ? View.VISIBLE : View.GONE);
             }
         }
     }

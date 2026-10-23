@@ -211,7 +211,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EDUV"
+                    android:text="EDUV4868808"
                     android:textColor="#77778A"
                     android:textSize="9sp" />
 
@@ -248,6 +248,16 @@
                     android:textColor="#6C5CE7"
                     android:textSize="7sp"
                     android:background="#EEEAFB" />
+
+                <Button
+                    android:id="@+id/btnDeleteKgabo"
+                    android:layout_width="70dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Delete"
+                    android:textSize="10sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#D9534F" />
 
             </LinearLayout>
 
@@ -332,6 +342,16 @@
                     android:textSize="7sp"
                     android:background="#FFF3DF" />
 
+                <Button
+                    android:id="@+id/btnDeleteBoitumelo"
+                    android:layout_width="70dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Delete"
+                    android:textSize="10sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#D9534F" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -376,7 +396,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EDUV"
+                    android:text="EDUV4916859"
                     android:textColor="#77778A"
                     android:textSize="9sp" />
 
@@ -413,6 +433,16 @@
                     android:textColor="#6C5CE7"
                     android:textSize="7sp"
                     android:background="#EEEAFB" />
+
+                <Button
+                    android:id="@+id/btnDeleteHlonipha"
+                    android:layout_width="70dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Delete"
+                    android:textSize="10sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#D9534F" />
 
             </LinearLayout>
 
