@@ -73,7 +73,6 @@
             android:layout_height="52dp"
             android:layout_marginTop="6dp"
             android:hint="e.g. SQL Fundamentals"
-            android:inputType="textCapSentences"
             android:padding="12dp"
             android:textColor="#20233D"
             android:textColorHint="#898BA0"

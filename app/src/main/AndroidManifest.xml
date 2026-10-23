@@ -160,6 +160,10 @@
             android:name=".AddStudentActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <!-- edit roadmap -->
+        <activity
+            android:name=".RoadmapEditActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

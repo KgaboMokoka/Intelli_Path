@@ -403,6 +403,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/btnEditBeginnerRoadmap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="✎"
@@ -412,6 +413,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtBeginnerRoadmapTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -421,6 +423,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtBeginnerRoadmapDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -429,6 +432,7 @@
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/txtBeginnerRoadmapStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -473,6 +477,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/btnEditIntermediateRoadmap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="✎"
@@ -482,6 +487,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtIntermediateRoadmapTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -491,6 +497,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtIntermediateRoadmapDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -499,6 +506,7 @@
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/txtIntermediateRoadmapStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
@@ -543,6 +551,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/btnEditAdvancedRoadmap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="✎"
@@ -552,6 +561,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtAdvancedRoadmapTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -561,6 +571,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtAdvancedRoadmapDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -569,6 +580,7 @@
                 android:textSize="9sp" />
 
             <TextView
+                android:id="@+id/txtAdvancedRoadmapStats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"

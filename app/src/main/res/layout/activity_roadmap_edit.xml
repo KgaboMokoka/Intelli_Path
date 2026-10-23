@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7FB"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/txtEditRoadmapHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Roadmap"
+            android:textColor="#151C52"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Update the roadmap information below."
+            android:textColor="#77778A"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Roadmap Title"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="Enter roadmap title"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Description"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="Enter description"
+            android:padding="14dp"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Number of Modules"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapModules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="e.g. 6"
+            android:inputType="number"
+            android:padding="14dp"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Number of Labs"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapLabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="e.g. 4"
+            android:inputType="number"
+            android:padding="14dp"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Level"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="Beginner, Intermediate or Advanced"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Assessment Score Range"
+            android:textColor="#17172F"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputRoadmapScoreRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="#FFFFFF"
+            android:hint="e.g. 0-49%"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="#17172F"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnSaveRoadmap"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="#151C52"
+            android:text="Save Changes"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnCancelRoadmap"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#E9E7F7"
+            android:text="Cancel"
+            android:textColor="#151C52"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>
